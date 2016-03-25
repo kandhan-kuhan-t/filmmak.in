@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="filmak.in">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>filmak.in</title>
+    <link rel="icon" href="fav.png" type="image/png" sizes="16x16">
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/main.css" rel="stylesheet">
+    <link href='https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Pacifico' rel='stylesheet' type='text/css'>
+    <!-- jQuery -->
+    <script src="jquery.js"></script>
+     <script src="bootstrap/js/bootstrap.js"></script>
+    <!-- AngularJS -->
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script src="angular-cookies.js"></script>
+    <script src="filmak.js"></script>
+
+    <style>body { padding-bottom: 70px; }</style>
+  </head>
+  <body ng-controller="mainController as main">
+    <div class="container-fluid">
+      <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+      <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img src="logo.png" alt="brand">
+      </a>
+    </div>
+    
+        <form class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Search">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+    <ul class="nav navbar-nav navbar-right">
+             <li><a href="#" class="btn btn-default" type="button" ng-hide = "show()" ng-href = "#login">Login!</a></li>
+             <!-- if loggedin -->
+             <li >
+             <div class="dropdown veralign">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-show = "show()" >
+    Hi! {{username}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="profile.html">View profile</a></li>
+    <li><a ng-click="logout()">Logout</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+  </div>
+  </li><!--end of dropdown-->
+    </ul>
+  </div>
+</nav>
+<!--outer container for check - further will change it with col-sm-8 for ads-->
+ 
+    
+<ng-view></ng-view>
+
+  
+
+
+
+
+   
+    
+</body>
+</html>

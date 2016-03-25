@@ -8,8 +8,8 @@ $videoID = $request->videoID;
 $title = $request->title;
 $description = $request->description;
 $genre = $request->genre;
-$query = "insert into videos values('$username','$videoID','$title','$description','$genre')";
+$query = "insert into videos values('$username','$videoID','$title','$description','$genre','')";
 $query_run = mysql_query($query) or die(mysql_error());
-$val = "DONE";
+$val = "VIDEO DETAILS ADDED to MySQL";
 echo json_encode($val);
 ?>

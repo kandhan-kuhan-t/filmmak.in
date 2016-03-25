@@ -61,7 +61,7 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
 
     })
 
-    .controller('videoController',function($scope,$http,Auth,$cookies){
+    .controller('videoController',function($scope,$http,Auth,$cookies,Youtube){
        
         $scope.videoID;
         $scope.title;
@@ -71,20 +71,27 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
 
         $scope.submit = function(){
              
-        $scope.data = {
+            $scope.data = {
 
             'username' : $cookies.get('user'),
             'videoID' : $scope.videoID,
             'title' : $scope.title,
             'description' : $scope.description,
-            'genre' : $scope.genre
-        }
-        console.log($scope.data)
+            'genre' : $scope.genre,
+
+            }
+            
+            console.log($scope.data)
+
             $http.post('youtube/save_data.php',$scope.data)
             .success(function(response){
                 console.log(response)
-        })
-    }
+           
+            })
+
+            Youtube.duration($scope.data);
+
+        }
 
     })
  	
@@ -145,6 +152,21 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
         return service;
     })
     
+    .factory('Youtube',function($http){
+
+        var service = {}
+
+        service.duration = function(data){
+
+            $http.post('try_y.php',data)
+            .success(function(response){
+                console.log(response)
+            })
+        }
+
+        return service;
+
+    })
 
     .config(function($routeProvider){
     

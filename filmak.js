@@ -43,7 +43,7 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
 
         }
         if(Auth.isLoggedIn() == true){
-                $scope.username = 'kandha'
+                $scope.username = $cookies.get('user')
                 $scope.data = {
 
                     'username' : $scope.username
@@ -60,6 +60,33 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
 
 
     })
+
+    .controller('videoController',function($scope,$http,Auth,$cookies){
+       
+        $scope.videoID;
+        $scope.title;
+        $scope.description;
+        $scope.genre;
+
+
+        $scope.submit = function(){
+             
+        $scope.data = {
+
+            'username' : $cookies.get('user'),
+            'videoID' : $scope.videoID,
+            'title' : $scope.title,
+            'description' : $scope.description,
+            'genre' : $scope.genre
+        }
+        console.log($scope.data)
+            $http.post('youtube/save_data.php',$scope.data)
+            .success(function(response){
+                console.log(response)
+        })
+    }
+
+    })
  	
 
     .factory('Auth',function($http,$rootScope,$cookies,$location){
@@ -69,7 +96,7 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
         service.login = function(data){
         
             console.log("SENDING DATA")
-        
+            var username = data.username
             $http.post('login/login.php',data)
             .success(function(response){
         
@@ -79,7 +106,8 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
                     
                     console.log("LOGGED IN - COOKIE CREATED")
                     $cookies.put('logval','true')
-                  
+                    $cookies.put('user',username)
+                    //SHOULD BE REFRESHED!
                     $location.path('/')
         
                 }
@@ -98,6 +126,7 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
         service.logout = function(){
         
             $cookies.remove('logval')
+            $cookies.remove('user')
             $http.post('login/logout.php');
 
             console.log("LOGOUT")
@@ -132,6 +161,13 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
                 controller:'login',
                 controllerAs:'log'
     
+            })
+
+            .when('/upload',{
+                templateUrl:'upload_video.html',
+                controller:'videoController',
+                controllerAs:'videoCtrl'
+
             })
     
         });		

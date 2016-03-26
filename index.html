@@ -16,55 +16,18 @@
          <!--span class="glyphicon glyphicon-menu-left glyphiconalign" aria-hidden="true"></span-->
         </div>
         <!--single thumbnail-->
+      <div ng-repeat = "response in responses">
         <div class="col-sm-2">
           <div class="col-sm-12">
             <img class="img-responsive" src="300x300.png" size="300px 300px">
           </div>
           <div class="col-sm-12">
-            <h5 class="title">Title of the project</h5>
+            <a  ng-click = "goto_video(response.videoID)" class="title">{{response.title}}</a>
           </div>
         </div>
+      </div> <!--ng - repeat -->
         <!--single thumbnail-->
-        <div class="col-sm-2">
-          <div class="col-sm-12">
-            <img class="img-responsive" src="300x300.png" size="300px 300px">
-          </div>
-          <div class="col-sm-12">
-            <h5 class="title">Title of the project</h5>
-          </div>
-        </div>
-        <!--single thumbnail-->
-        <div class="col-sm-2">
-          <div class="col-sm-12">
-            <img class="img-responsive" src="300x300.png" size="300px 300px">
-          </div>
-          <div class="col-sm-12">
-            <h5 class="title">Title of the project</h5>
-          </div>
-        </div>
-        <!--single thumbnail-->
-        <div class="col-sm-2">
-          <div class="col-sm-12">
-            <img class="img-responsive" src="300x300.png" size="300px 300px">
-          </div>
-          <div class="col-sm-12">
-            <h5 class="title">Title of the project</h5>
-          </div>
-        </div>
-                <!--single thumbnail-->
-        <div class="col-sm-2">
-          <div class="col-sm-12">
-            <img class="img-responsive" src="300x300.png" size="300px 300px">
-          </div>
-          <div class="col-sm-12">
-            <h5 class="title">Title of the project</h5>
-          </div>
-        </div>
-        <div class="col-sm-1">
-          <!--a href="#">
-             <span class="glyphicon glyphicon-menu-right glyphiconalign" aria-hidden="true"><p><h5>Load more</h5></p></span>
-          </a-->
-        </div>
+     
       </div>
    </div><!--end of single row-->
 

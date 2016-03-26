@@ -1,0 +1,6 @@
+<?php
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$url = $request->url;
+echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/$url" frameborder="0" allowfullscreen></iframe>';
+?>

@@ -27,8 +27,23 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
 
      })
 
-    .controller('mainController',function($scope,$http,Auth,$cookies){
+    .controller('mainController',function($scope,$http,Auth,$cookies,$location,$sce){
 
+        $http.post('data/get_video_details.php')
+        .success(function(response){
+            
+            $scope.responses = response;
+        })
+        console.log($scope.responses)
+        
+        $scope.goto_video = function(response){
+            $location.path('/video')
+            $scope.data = {
+                'url': response
+            }
+            $http.post('video_1.php',$scope.data)
+            console.log($scope.video)
+        }
                 //function to return user's session state
         $scope.show = function(){
 
@@ -190,6 +205,12 @@ angular.module('filmak.in',['ngCookies','ngRoute'])
                 controller:'videoController',
                 controllerAs:'videoCtrl'
 
+            })
+
+            .when('/video',{
+                templateUrl:'video_1.php',
+                controller:'mainController',
+                controllerAs:'mainCtrl'
             })
     
         });		

@@ -1,10 +1,3 @@
-<?php
-session_start();
-if(!$_SESSION['username']){
-  header('location:home.html');
-  die;
-}
-?>
 <!DOCTYPE html>
 <html lang="en" ng-app="filmak.in">
   <head>
@@ -36,42 +29,49 @@ if(!$_SESSION['username']){
 <!-- FORMAT IT ANAND -->
   <div ng-controller="filmSubmissionController as filmCtrl">
     <div class="container-fluid">
-      <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-      <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+       <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="col-sm-12">filmak.in</div>
+      <a class="mix" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
-    </div>
-    
-        <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control sharp" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default sharp">Submit</button>
-        </form>
-      </div>
+    </nav>
     </div>
 <div class="container2 headclr">
 
     <div class="col-sm-12">
-		
-		<form ng-submit = "submit()" style = "color:red" enctype="multipart/form-data">
-         
+    
+      <div class="box" align="center">
+     <!--div class="box-title"><h3>LOGIN</h3></div-->
+    <form ng-submit = "submit()" enctype="multipart/form-data">
 
-videoID:<input type = "text" ng-model = "videoID"/>
-title:<input type = "text" ng-model = "title"/>
-description:<input type = "text" ng-model = "description"/>
-genre:<input type = "text" ng-model = "genre"/>
-<br>
-Image:<input type="file" file-model="myFile" />
-
-
-<input type = "submit"/>
-		
-		</form>	
-	
-	</div>
+    <div class="form-group">
+      <label for="videoid">Video URL</label>
+      <input type="text" class="form-control"  placeholder="VideoURL" ng-model="videoURL" required>
+      <span>{{error}}</span>
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control"  placeholder="Title" ng-model="title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control"  rows="4" placeholder="Description" ng-model="description" required></textarea> 
+    </div>
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <input type="text" class="form-control"  placeholder="Genre" ng-model="genre" required>
+    </div>
+    <div class="form-group">
+    <label for="exampleInputFile">Thumbnails</label>
+    <input type="file" id="exampleInputFile" file-model="myFile" required>
+    <p class="help-block">Poster/Screenshots of the film. Square sized images are prefered.</p>
+  </div>
+        <input type="submit" class="btn btn-default">
+    </form>
+  
+  </div>
+  
+  </div>
 
 </div>
 </div><!-- videoCtrl ends-->

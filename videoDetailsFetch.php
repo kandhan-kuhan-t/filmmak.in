@@ -1,11 +1,7 @@
 <?php
 session_start();
-//if(!$_SESSION['user_id']){
-//header('location:home.html');
-//die;
-//}
 $videoID = $_SESSION['videoID'];
-$conn = mysqli_connect("localhost","root","Kandha26$","filmak") or die(mysqli_connect_error());
+include_once $_SERVER['DOCUMENT_ROOT']."/filmmak.in/conn.php";
 $query = "select * from videos where videoID = '$videoID'";
 $query1 = "select member from casting where videoID = '$videoID'";
 $query1_run = mysqli_query($conn,$query1);

@@ -1,6 +1,6 @@
 <?php
 session_start();
-echo '<script>console.log("'.$_SESSION['username'].'WTF?")</script>';
+
 if(!$_SESSION['username']){
   header('location:home.html');
   die;
@@ -55,7 +55,7 @@ if(!$_SESSION['username']){
   <button type="submit" class="btn btn-default sharp">Submit</button>
   </form>
               <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi{{name}}<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.html">Upload</a></li></ul></div></li></ul>
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
             <ul class="nav navbar-nav navbar-right"><li><a href="login.html" class="btn btn-default" type="button">Login</a></li></ul>
@@ -96,33 +96,36 @@ if(!$_SESSION['username']){
 
   <!-- Tab panes -->
 
+
+   
   
   <div class="tab-content">
 
     <div role="tabpanel" class="tab-pane active tabclr" id="profile">
-
-      <form style="color:blue" ng-submit="submit_profile()">
-     Profile name:
-      <div ng-show="isEditable()">
-        <input style="color:blue" type = "text" ng-model="profile_name"/>
-      </div>
-      <span style="color:red" ng-show="!isEditable()">
-        {{profile_name}}
-      </span>
-      <br>
-      
-      Gender:
-      <div ng-show="isEditable()">
-        <input type="radio" name="gender" value="male" ng-model="gender" />Male
-      <input type="radio" name="gender" value="female" ng-model="gender" />Female
-      <input type="radio" name="gender" value="other" ng-model="gender" />Other
-    </div>
-    <span ng-show="!isEditable()">
-      {{gender}}
-    </span>
-    <br>
-
-      Field of Expertise:
+      <form ng-submit="submit_profile()">
+        <ul class="list-group">
+          <li class="list-group-item">
+            Profile name:
+           <div ng-show="isEditable()">
+             <input  type = "text" ng-model="profile_name"/>
+           </div>
+           <span ng-show="!isEditable()">
+             {{profile_name}}
+           </span>
+         </li>
+         <li class="list-group-item">
+          Gender:
+          <div ng-show="isEditable()">
+           <input type="radio" name="gender" value="male" ng-model="gender" />Male
+           <input type="radio" name="gender" value="female" ng-model="gender" />Female
+           <input type="radio" name="gender" value="other" ng-model="gender" />Other
+          </div>
+          <span ng-show="!isEditable()">
+            {{gender}}
+          </span>
+         </li>
+         <li class="list-group-item">
+            Field of Expertise:
       <div ng-show="isEditable()">
       <select name="fieldofexperise" ng-model="field_of_expertise">
       <option value="director">Director</option>
@@ -141,52 +144,59 @@ if(!$_SESSION['username']){
   <span ng-show="!isEditable()">
     {{field_of_expertise}}
   </span>
-  <br>
-      Birth year:
+         </li>
+         <li class="list-group-item">
+             Birth year:
       <div ng-show="isEditable()">
         <input type="number" name="birthyear" ng-model="birth_year" />
       </div>
       <span ng-show="!isEditable()">
         {{birth_year}}
       </span>
-<br>
-      Birth Date:
+         </li>
+         <li class="list-group-item">
+            Birth Date:
       <div ng-show="isEditable()">
       <input type="number" name="birthdate" ng-model="birth_date" />
     </div>
     <span ng-show="!isEditable()">
       {{birth_date}}
     </span>
-      <br>
-      Prior Experience:
+         </li>
+         <li class="list-group-item">
+            Prior Experience:
       <div ng-show="isEditable()">
       <input type="textarea" ng-model="experience" />
       </div>
       <span ng-show="!isEditable()">
         {{experience}}
       </span>
-      <br>
-      Tell about yourself in 100 words:
+         </li>
+         <li class="list-group-item">
+             Tell about yourself in 100 words:
       <div ng-show="isEditable()">
       <input type="textarea" ng-model="about" />
     </div>
     <span ng-show="!isEditable()">
       {{about}}
     </span>
-    <br>
-      <div ng-show="isEditable()">
-      <input type="submit">
+         </li>
+        </ul>
+    <div ng-show="isEditable()">
+      <input type="submit" class="btn btn-default">
     </div>
     <div ng-show="!isEditable()">
-          <button type="button" ng-click="edit()">EDIT</button>
+          <button type="button" class="btn btn-edit" ng-click="edit()">Edit&nbsp;</button>
         </div>
     </form>
-
-      
     </div>
+      
+  
     
     <div role="tabpanel" class="tab-pane tabclr" id="contact">
-      <form style="color:red">
+      <form>
+       <ul class="list-group">
+        <li class="list-group-item">
       Contact Number:
       <div ng-show="isEditable()">
       <input type="text" ng-model="contact_number"/>
@@ -194,8 +204,8 @@ if(!$_SESSION['username']){
       <span ng-show="!isEditable()">
         {{contact_number}}
       </span>
-      <br><br>
-
+      </li>
+      <li class="list-group-item">
       Email-ID:
       <div ng-show="isEditable()">
         <input type="email" ng-model="email_id"/>
@@ -203,14 +213,10 @@ if(!$_SESSION['username']){
       <span ng-show="!isEditable()">
         {{email_id}}
       </span>
-      
-      
-
-
-
+    </li>
+       </ul>
       </form>
-
-</div>
+    </div>
     </div>
     
   </div>

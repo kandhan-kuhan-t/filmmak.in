@@ -7,39 +7,31 @@ angular.module('filmak.in',['ngCookies'])
        
 	})
     .directive('fileModel', ['$parse', function ($parse) {
-            
             return {
-            
                restrict: 'A',
-            
                link: function(scope, element, attrs) {
-            
                   var model = $parse(attrs.fileModel);
-            
                   var modelSetter = model.assign;
                   
                   element.bind('change', function(){
-            
                      scope.$apply(function(){
-            
                         modelSetter(scope, element[0].files[0]);
-            
                      });
-            
                   });
-            
                   }
-            
             };
-        
         }])
-    
     .controller('loginController',function($scope,$rootScope,$http,Auth,$cookies){
     
         console.log("LOGIN CONTROLLER RUNNING!");
 
+        //Username,Password in login.html
+        $scope.username;
+        $scope.password;
+        //data - js object to be sent to login.php for validation
+      
+        //login - cookie "logval" => "true" if user is valid else "false"
         $scope.login = function(){
-            
             $scope.data = {
                 
                 'username' : $scope.username,
@@ -53,99 +45,89 @@ angular.module('filmak.in',['ngCookies'])
 
      })
 
-    .controller('mainController',function($scope,$http,Auth,$location,$sce,$window,$timeout){
-         
+    .controller('mainController',function($scope,$http,Auth,$cookies,$location,$sce,$window,$timeout){
          console.log("mainCtrl RUNNING")
-            //fetch user data
             if(Auth.isLoggedIn() == true){
-
-                $http.post('data/get_user_data.php')
-                    
-                    .then(function(response){
-                    
-                        $scope.username = response.data[0]
-                        
+            $scope.name = $cookies.get('name')
+            $scope.username = $cookies.get('username')
+        }
                 
-                })
+            
 
-            }
-                
+             
             $scope.show = function(){
 
-                return Auth.isLoggedIn()
+            return Auth.isLoggedIn()
 
+        }
+        $scope.search = function(){
+            $scope.data = {
+                'search_string' : $scope.search_string
             }
-            
-            $scope.search = function(){
-            
-                $scope.data = {
-            
-                     'search_string' : $scope.search_string
-            
-                }
-            
-                $http.post('search/search_put.php',$scope.data)
-            
-                    .success(function(response){
-            
-                         $window.location.href = "searchShow.html"
-                    })
-            }
+            $http.post('search/search_put.php',$scope.data)
+            .success(function(response){
+                $window.location.href = "search.php"
+            })
+        }
+
+
         
-        //logs out the user by calling the Auth.logout() Service
-        
+        //logs out the user by deleting the cookie 
         $scope.logout = function(){
-            
             console.log("LOGOUT FIRED")
 
             Auth.logout()
 
         }
         
-        $scope.title = []
 
-        $scope.videoID = []
+       $scope.title = []
 
-        $http.post('data/get_video_details_new.php')
-            
-            .then(function(response){
-            
-                $scope.responses_new = response;
+       $scope.videoID = []
 
-                console.log($scope.responses_new)
-        
-        })
-        $http.post('data/get_video_details_trending.php')
+        $http.post('data/get_video_details.php')
+        .then(function(response){
             
-            .then(function(response){
-            
-                $scope.responses_trending = response;
+            $scope.responses = response;
 
-                console.log($scope.responses_trending)
-        
-        })
-        $http.post('data/get_video_details_popular.php')
-            
-            .then(function(response){
-            
-                $scope.responses_popular = response;
+            console.log($scope.responses)
 
-                console.log($scope.responses_popular)
-        
+            /*for(i=0,l=$scope.responses.data.length;i<l;i++){
+
+                $scope.title[i] = $scope.responses.data[i].title;
+                $scope.videoID[i] = $scope.responses.data[i].videoID;
+               
+            }*/
+
         })
 
-            $scope.goto_video = function(data){
+
+        
+
+        
+        
+        
+        
+            
+            
+
+
+        $scope.goto_video = function(data){
 
             console.log("goto_video(data) working!")
             
 
             $window.location.href = 'video.php?videoID='+data
             
-            }
+
+
+        }
     
             
-    })
+        
 
+
+    })
     .controller('searchController',function($scope,$http,$window){
 
         console.log("searchController RUNNING")
@@ -157,60 +139,47 @@ angular.module('filmak.in',['ngCookies'])
 
         })
     })
-
-    //profile controller
-    
-    .controller('formController',function($scope,$http,Profile,$rootScope, $window,$controller){
+    .controller('formController',function($scope,$http,Profile,$rootScope, $window){
                 
-        
-        console.log("formController RUNNING!")
 
-       $scope.edit_val = false
-                
-        $scope.edit = function(){
-                
-            $scope.edit_val = true
+              console.log("formController RUNNING!")
+              $scope.profile_name = $scope.name;
+              $scope.username = {
 
-        }
-
-        
-        $http.post("profile/fetch_user_data.php")
-
+                'username' : $scope.username
+              
+              }
+              $scope.edit_val = false
+            $scope.edit = function(){
+                $scope.edit_val = true
+            }
+            $http.post("profile/fetch_user_data.php",$scope.username)
             .success(function(response){
+               $scope.userData = response
+           }).then(function(){
+                $scope.username = $scope.userData.username
+                $scope.profile_name = $scope.userData.name
+                $scope.gender = $scope.userData.gender
+                $scope.field_of_expertise = $scope.userData.field
+                $scope.birth_year = Number($scope.userData.birth_year)
+                $scope.birth_date = Number($scope.userData.birth_date)
+                $scope.experience = String($scope.userData.experience)
+                $scope.about = $scope.userData.about
+                $scope.contact_number = $scope.userData.contact_number
+                $scope.email_id = $scope.userData.email_id
 
-                $scope.userData = response               
-    
-            })
-                    .then(function(){
-                        console.log($scope.userData)
-                       
-                
-                        $scope.username = $scope.userData.username
-                        $scope.profile_name = $scope.userData.name
-                        $scope.gender = $scope.userData.gender
-                        $scope.field_of_expertise = $scope.userData.field
-                        if(($scope.userData.birth_year))$scope.birth_year = Number($scope.userData.birth_year)
-                        if($scope.userData.birth_date)$scope.birth_date = Number($scope.userData.birth_date)
-                        if($scope.userData.experience)$scope.experience = String($scope.userData.experience)
-                        if(($scope.userData.about))$scope.about = $scope.userData.about
-                        if($scope.userData.contact_number)$scope.contact_number = $scope.userData.contact_number
-                        if($scope.userData.email_id)$scope.email_id = $scope.userData.email_id
-                    
+               })
+              
 
-                   })
-             
-
-        $scope.submit_contact = function(){
         
+              //
+
+              $scope.submit_contact = function(){
             console.log("CONTACT-SUBMITTED")
-        
             $scope.data = {
-        
                 'contact_number': $scope.contact_number,
                 'email_id': $scope.email_id
-        
             }
-        
             Profile.submit_contact($scope.data)
             
         }
@@ -219,10 +188,8 @@ angular.module('filmak.in',['ngCookies'])
         $scope.submit_profile = function(){
         
             console.log("PROFILE-SUBMITTED")
-        
             $scope.data = {
-        
-                
+                'username' :$scope.username,
                 'profile_name': $scope.profile_name,
                 'field': $scope.field_of_expertise,
                 'birth_year': $scope.birth_year,
@@ -230,9 +197,7 @@ angular.module('filmak.in',['ngCookies'])
                 'experience': $scope.experience,
                 'about': $scope.about,
                 'gender':$scope.gender
-        
             }
-        
             Profile.submit_profile($scope.data)
             $scope.submit_contact()
             $window.location.reload()
@@ -248,7 +213,7 @@ angular.module('filmak.in',['ngCookies'])
     .controller('videoDetailsController',function($scope,$http,$cookies,$timeout,Video){
 
         console.log("videoDetailsController RUNNING!")
-        $http.post('videoDetailsFetch_new.php')
+        $http.post('videoDetailsFetch.php')
         .then(function(response){
             console.log(response)
           $scope.title = response.data[0].title;
@@ -262,11 +227,8 @@ angular.module('filmak.in',['ngCookies'])
           }
 
         })
-       
         $timeout(function(){
-       
             $scope.data = {
-       
                 'videoID' : $scope.videoID
             }
             console.log("TIMEOUT FIRED")
@@ -278,8 +240,7 @@ angular.module('filmak.in',['ngCookies'])
 
     })
 
-    .controller('filmSubmissionController',function($scope,$http,Auth,$cookies,$window){
-        
+    .controller('filmSubmissionController',function($scope,$http,Auth,$cookies){
         console.log("videoCtrl RUNNING");
         
         $scope.videoURL;
@@ -288,96 +249,80 @@ angular.module('filmak.in',['ngCookies'])
         $scope.genre;
 
          $scope.uploadFile = function(){
-               
                var file = $scope.myFile;
-               
                $scope.file = $scope.myFile
-               
                console.log('file is ' );
-               
                console.log($scope.file);
                
                var uploadUrl = "/fileUpload";
 
                var fd = new FormData();
-               
                fd.append('file', file);
-               
                fd.append('videoID',$scope.videoID)
             
                $http.post('imageUpload.php', fd, {
-               
                   transformRequest: angular.identity,
-               
                   headers: {'Content-Type': undefined}
-               
                })
             
-                    .success(function(response){
-                        
-                        console.log("IMAGE UPLOADED")
-                        
-                        console.log(response)
-                    })
-        }
+               .success(function(response){
+                console.log("IMAGE UPLOADED")
+                console.log(response)
+               })
+           }
 
         $scope.submit = function(){
             
-            //sanitize the videoURL to videoID
-            var pos = String($scope.videoURL).indexOf('v=')
+            
+                var pos = String($scope.videoURL).indexOf('v=')
+                $scope.videoID = $scope.videoURL.slice(pos+2)
+                console.log($scope.videoID)
 
-            $scope.videoID = $scope.videoURL.slice(pos+2)
 
-            console.log($scope.videoID)
+            
 
             $http.get(' https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='+$scope.videoID+'&key=AIzaSyCF5LnKXJWU1uQRh3LgQLXo3VDF78Dfxz4')
 
-                .success(function(response){
-                    //if the id is valid
-                    if(response.pageInfo.resultsPerPage == '1'){
+            .success(function(response){
+            //if the id is valid
+            if(response.pageInfo.resultsPerPage == '1'){
 
-                        $scope.data = {
+            
+            $scope.data = {
 
-                        
-                            'videoID' : $scope.videoID,
-                            'title' : $scope.title,
-                            'description' : $scope.description,
-                            'genre' : $scope.genre,
-                            'duration' : response.items[0].contentDetails.duration
+            'username' : $cookies.get('username'),
+            'videoID' : $scope.videoID,
+            'title' : $scope.title,
+            'description' : $scope.description,
+            'genre' : $scope.genre,
+            'duration' : response.items[0].contentDetails.duration
 
-                    }
+            }
             
-                        console.log($scope.data)
+            console.log($scope.data)
             
-                        $http.post('youtube/save_data.php',$scope.data)
+            $http.post('youtube/save_data.php',$scope.data)
             
-                            .success(function(response){
+            .success(function(response){
             
-                                if(response == 1){
+            if(response == 1){
             
-                                    console.log("VIDEO DETAILS ADDED TO MYSQL")
+                console.log("VIDEO DETAILS ADDED TO MYSQL")
            
-                                    $scope.uploadFile()
-
-                                    $window.location.href = 'home.html'
+                $scope.uploadFile()
         
-                                }
+            }
 
-                            })
 
-                    }
-                
-                else{
-
-                    $scope.error = "Invalid URL"
-            
-                    console.log($scope.error)
-                }
-            
             })
-        
-        }
 
+        }
+        else{
+            $scope.error = "Invalid URL"
+            console.log($scope.error)
+        }
+    })
+        }
     })
  	
 
@@ -388,11 +333,8 @@ angular.module('filmak.in',['ngCookies'])
         service.submit_profile = function(data){
 
             console.log("SUBMIT_PROFILE - PROFILE SERVICE")
-            
             $http.post('profile/update_profile.php',data)
-
             .success(function(response){
-            
                 console.log(response)
             
                 })
@@ -400,24 +342,16 @@ angular.module('filmak.in',['ngCookies'])
             }
 
         service.submit_contact = function(data){
-            
             console.log("SUBMIT_CONTACT - profile service")
-            
             $http.post('profile/update_contact.php',data)
-            
             .success(function(response){
-            
                 console.log(response)
             })
         }    
         service.fetch_user_data = function(data){
-            
             console.log("FETCHING USER DATA")
-            
             $http.post("profile/fetch_user_data.php",data)
-            
             .success(function(response){
-            
                return response
 
             })
@@ -433,22 +367,20 @@ angular.module('filmak.in',['ngCookies'])
         
         service.login = function(data){
         
-            console.log("SENDING LOGIN CREDENTIALS")
-            
+            console.log("SENDING DATA")
             var username = data.username
-            
             $http.post('login/login.php',data)
-            
             .success(function(response){
         
-            //login.php returns 1 if the user is valid
+        //login.php returns 1 if the user is valid
         
                 if(response[0] == '1'){
                     
                     console.log("LOGGED IN - COOKIE CREATED")
 
                     $cookies.put('logval','true')
-
+                    $cookies.put('name',response[1])
+                    $cookies.put('username',username)
                     //SHOULD BE REFRESHED!
                     $window.location.reload()
                     $window.location.href = 'home.html'
@@ -490,6 +422,7 @@ angular.module('filmak.in',['ngCookies'])
     })
     
     
+
     .factory('Video',function($http){
 
         var service = {}
@@ -497,9 +430,7 @@ angular.module('filmak.in',['ngCookies'])
         service.view_up = function(data){
 
             $http.post('video_view_up.php',data)
-            
             .success(function(response){
-
                 console.log(response)
             })
         }

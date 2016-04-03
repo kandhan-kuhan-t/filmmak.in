@@ -9,6 +9,8 @@ $i = 0;
 while($result = mysqli_fetch_assoc($query_run)){
 	$results[$i]['title'] = $result['title'];
 	$results[$i]['videoID'] = $result['videoID'];
+	$results[$i]['description'] =$result['description'];
+	$results[$i]['views'] = $result['views'];
 	$i++;
 }
 echo json_encode($results);

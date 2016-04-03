@@ -37,6 +37,7 @@
 }
 .tabclr{
 	background-color: #1bbb9b;
+  color:#1bbb9b;
 }
 .bxclr{
 	background-color: #213140;
@@ -58,7 +59,22 @@
 }
 
 
+.btn-edit{
+  background-color: #ffffff;
+  padding: 3px;
+  margin-left:90%;
+  margin-bottom: 10px; 
 
+}
+
+.pads{
+  margin-bottom: 20px;
+}
+.list{
+  width:500px;
+  position: relative;
+  left: 10%;
+}
 
 .main {
     display:block;
@@ -105,17 +121,24 @@
     border-radius: 0;
 }
 
+@font-face {
+  font-family: "Fox & Cat";
+  /*font-style:  normal;
+  font-weight: 400;
+  */src: url(Fox & Cat-webfont.woff) format('woff');
+  }
 
 
 
 /*!this is for flex slider!*/
 .hh{
   padding: 8px;
+  font-family: "Fox & Cat";
 }
 .hh a{
   color:#1bbb9b;
    margin: 0 0 8px;
-  font: normal 20px Helvetica, Arial, sans-serif;
+  font: normal 20px "Fox & Cat";
 }
 .hh  a:hover,
 .hh a:focus{
@@ -125,15 +148,33 @@
 .hh p{
   color:#1bbb9b;
    
-  font: normal 15px Helvetica, Arial, sans-serif;
+  font: normal 15px "Fox & Cat";
 }
-.inputClass{
-  background: black;
-}
-.inputClass[disabled]{
-  box-shadow: none;
-  outline:none;
-  border: none;
-  background: orange;
 
+.box{
+  background-color:#20585a; 
+  position: relative;
+  left:30%;
+  width: 500px;
+  padding: 20px;
+  color:#ffffff;
 }
+.box-title{
+  position: relative;
+  width:100%;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+.mix{
+  margin-left: 625px;
+  height: 30px;
+  padding: 23px 23px;
+  font-size: 18px;
+  line-height: 20px;
+   
+}
+
+   nav.navbar{
+    -webkit-transition:all 0.4s ease;
+transition:alll 0.4s ease;
+   }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="filmak.in">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +11,16 @@
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="bootstrap/css/main.css" rel="stylesheet">
+    <script src="jquery.js"></script>  
     <link href='https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Pacifico' rel='stylesheet' type='text/css'>
-    
+    <!--ANGULARjs-->
+    <script src="angular/angular.min.js"></script>    
+    <script src="angular/angular-cookies.js"></script>
+    <script src="angular/filmak.js"></script>
+    <script src="angular/angular-cookies.js"></script>
     <style>body { padding-bottom: 70px; }</style>
   </head>
-  <body>
+  <body ng-cloak>
   	<!--outer container for check - further will change it with col-sm-8 for ads-->
     <div class="container-fluid">
       <nav class="navbar navbar-default navbar-fixed-top">
@@ -58,7 +63,7 @@
 
 
 
-  <div class="container2">
+  <div class="container2" ng-controller="mainController as mainCtrl">
     <div class="col-sm-12">
       <div class="col-sm-12 vidcon well">
         <div class="col-sm-1"></div>
@@ -66,10 +71,8 @@
         <!--a href="#" class="thumbnail"><img class="img-responsive videopadd" src="vid.png" size="800px 500px"></a-->
         
           <!-- 16:9 aspect ratio -->
-             <div class="embed-responsive embed-responsive-16by9">
-                   <iframe class="embed-responsive-item" src="..."></iframe>
-             </div>
-
+         <iframe width="420" height="315" src="https://www.youtube.com/embed/..." frameborder="0" allowfullscreen></iframe>
+             
           <!-- 4:3 aspect ratio >
               <div class="embed-responsive embed-responsive-4by3">
                    <iframe class="embed-responsive-item" src="..."></iframe>

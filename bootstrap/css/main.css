@@ -92,3 +92,48 @@
     max-width:100%;
     z-index:999;
 }
+
+
+/*!this is for square buttons!*/
+
+.btn.sharp {
+  border-radius:0;
+  /* box-shadow: 0 3px 0 0 #078A70;*/
+}
+
+.form-control .sharp{
+    border-radius: 0;
+}
+
+
+
+
+/*!this is for flex slider!*/
+.hh{
+  padding: 8px;
+}
+.hh a{
+  color:#1bbb9b;
+   margin: 0 0 8px;
+  font: normal 20px Helvetica, Arial, sans-serif;
+}
+.hh  a:hover,
+.hh a:focus{
+  color:#ffffff; 
+  text-decoration: none;
+}
+.hh p{
+  color:#1bbb9b;
+   
+  font: normal 15px Helvetica, Arial, sans-serif;
+}
+.inputClass{
+  background: black;
+}
+.inputClass[disabled]{
+  box-shadow: none;
+  outline:none;
+  border: none;
+  background: orange;
+
+}

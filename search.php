@@ -66,5 +66,10 @@
 <br>
 <br>
 <br>
+<div ng-controller="searchController as searchCtrl">
+  <p >SEARCH RESULTS</p>
+  <ul>
 
-  <p>kjhk</p>
+    <li ng-repeat="response in responses"><img ng-src="images/{{response.videoID}}.png" draggable="false"><a ng-href="video.php?videoID={{response.videoID}}"style="color:red">{{response.title}}</a></li>
+
+  </ul>

@@ -60,8 +60,16 @@ angular.module('filmak.in',['ngCookies'])
 
         }
         $scope.search = function(){
-            $window.location.href = 'search.php?search_string='+$scope.search_string
+            $scope.data = {
+                'search_string' : $scope.search_string
+            }
+            $http.post('search/search_put.php',$scope.data)
+            .success(function(response){
+                $window.location.href = "search.php"
+            })
         }
+
+
         
         //logs out the user by deleting the cookie 
         $scope.logout = function(){
@@ -118,6 +126,17 @@ angular.module('filmak.in',['ngCookies'])
         
 
 
+    })
+    .controller('searchController',function($scope,$http,$window){
+
+        console.log("searchController RUNNING")
+        $http.post('search/search_get.php')
+        .success(function(response){
+            console.log(response)
+            $scope.responses = response;
+            
+
+        })
     })
     .controller('formController',function($scope,$http,Profile,$rootScope, $window){
                 

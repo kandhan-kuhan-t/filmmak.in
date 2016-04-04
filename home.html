@@ -14,7 +14,7 @@
     <!--jQuery-->
     <script src="jquery.js"></script>  
     <script src="bootstrap/js/bootstrap.js"></script>
-    <link href='https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Pacifico' rel='stylesheet' type='text/css'>
+    
     
     <style>body { padding-bottom: 70px; }</style>
     <!--FLEXSLIDER-->
@@ -71,7 +71,7 @@
             <li ng-repeat="video in responses_new.data" data-thumb-alt="" style="width: 300px;  ; margin-right: 5px; float: left; display: block;">
               <img ng-src="images/{{video.videoID}}jpg" draggable="false">
               
-              <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
+              <div class="hh"><a ng-click="goto_video(video.videoID)"><strong>{{video.title}}</strong></a><p><strong>{{video.description}}</strong></p></div>
             </li>
               
 

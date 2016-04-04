@@ -50,9 +50,9 @@ if(!$_SESSION['username']){
     
         <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-    <input type="text" class="form-control sharp" placeholder="Search">
+    <input type="text" class="form-control sharp" placeholder="Search" ng-model="search_string">
   </div>
-  <button type="submit" class="btn btn-default sharp">Submit</button>
+  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
   </form>
               <div ng-show="show()">
              <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>

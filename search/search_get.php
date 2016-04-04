@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = mysqli_connect("localhost","root","Kandha26$","filmak") or die(mysqli_connect_error());
+include_once $_SERVER['DOCUMENT_ROOT']."/filmmak.in/conn.php";
 $search_string = $_SESSION['search_string'];
 $query = "select * from videos where title like '%$search_string%'";
 $query_run = mysqli_query($conn,$query);

@@ -7,14 +7,11 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 @font-face {
-  font-family:  "Fox & Cat";
-  font-style:  normal;
-  font-weight: 400;
-  src: url(
-    Fox & Cat.ttf) format('truetype');
+  font-family:  "FoxandCat";
+  src: url(FoxandCat.ttf) format('truetype');
 }
 html {
-  font-family:  "Fox & Cat";
+  font-family:  "FoxandCat";
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -1091,7 +1088,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family:  "Fox & Cat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:  "FoxandCat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
@@ -1549,7 +1546,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family:  "Fox & Cat",Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family:  "FoxandCat",Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 code {
   padding: 2px 4px;
@@ -6068,7 +6065,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family:  "Fox & Cat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:  "FoxandCat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
@@ -6187,7 +6184,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family:  "Fox & Cat","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:  "FoxandCat","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: normal;

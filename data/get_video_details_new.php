@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT']."/filmmak.in/conn.php";
-$sql = "select videoID,title,description,genre from videos";
+$sql = "select videoID,title,description,genre from videos order by upload_date desc";
 $query_run = mysqli_query($conn,$sql);
 $i = 0;
 $response = array();

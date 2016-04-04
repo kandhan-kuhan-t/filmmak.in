@@ -1,8 +1,9 @@
 angular.module('filmak.in',['ngCookies'])
 	
-    .run(function(Auth,$sce,$rootScope,$http){
-		//RUNS BEFORE CONTROLLERS DO
+    .run(function(Auth,$sce,$rootScope,$http,$window){
+		//RUNS BEFORE CONTROLLERS DOw
         console.log("FILMAK.IN RUNNING!")
+     
         
        
 	})
@@ -62,6 +63,7 @@ angular.module('filmak.in',['ngCookies'])
                 $http.post('data/get_user_data.php')
                     
                     .then(function(response){
+                        console.log(response)
                     
                         $scope.username = response.data[0]
                         
@@ -248,11 +250,13 @@ angular.module('filmak.in',['ngCookies'])
     .controller('videoDetailsController',function($scope,$http,$cookies,$timeout,Video){
 
         console.log("videoDetailsController RUNNING!")
-        $http.post('videoDetailsFetch_new.php')
+
+        $http.post('videoDetailsFetch.php')
         .then(function(response){
             console.log(response)
           $scope.title = response.data[0].title;
           $scope.description = response.data[0].description;
+          console.log(response.data[0].description)
           $scope.views = response.data[0].views;
           $scope.genre = response.data[0].genre;
           $scope.videoID = response.data[0].videoID;
@@ -271,7 +275,7 @@ angular.module('filmak.in',['ngCookies'])
             }
             console.log("TIMEOUT FIRED")
             Video.view_up($scope.data)
-        },10000)
+        },30000)
 
 
 

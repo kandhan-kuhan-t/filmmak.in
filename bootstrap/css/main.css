@@ -122,10 +122,10 @@
 }
 
 @font-face {
-  font-family: "Fox & Cat";
+  font-family: "FoxandCat";
   /*font-style:  normal;
   font-weight: 400;
-  */src: url(Fox & Cat-webfont.woff) format('woff');
+  */src: url(FoxandCat.ttf) format('truetype');
   }
 
 
@@ -133,12 +133,12 @@
 /*!this is for flex slider!*/
 .hh{
   padding: 8px;
-  font-family: "Fox & Cat";
+  font-family: "FoxandCat";
 }
 .hh a{
   color:#1bbb9b;
    margin: 0 0 8px;
-  font: normal 20px "Fox & Cat";
+  font: normal 20px "FoxandCat";
 }
 .hh  a:hover,
 .hh a:focus{
@@ -148,7 +148,7 @@
 .hh p{
   color:#1bbb9b;
    
-  font: normal 15px "Fox & Cat";
+  font: normal 15px "FoxandCat";
 }
 
 .box{

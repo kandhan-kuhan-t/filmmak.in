@@ -17,6 +17,7 @@ $query_run = mysqli_query($conn,$query);
 $result = mysqli_fetch_row($query_run);
 
 $val = [];
+$val[0] = 0;
 
 if($result[0] == '1'){
 

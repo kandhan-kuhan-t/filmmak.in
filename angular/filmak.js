@@ -121,9 +121,13 @@ angular.module('filmak.in',['ngCookies'])
          
          console.log("mainCtrl RUNNING")
             //fetch user data
-            if(Auth.isLoggedIn() == true){
+            $http.post('data/check_if_user_loggedIn.php')
+            .success(function(response){
+                if(response == '1')
+                    $scope.log_val = true
+            
 
-                $http.post('data/get_user_data.php')
+                $http.post('data/get/get_user_data.php')
                     
                     .then(function(response){
                         console.log(response)
@@ -133,13 +137,13 @@ angular.module('filmak.in',['ngCookies'])
                         
                 
                 })
+                })
 
-            }
+            
                 
             $scope.show = function(){
 
-                return Auth.isLoggedIn()
-
+                return $scope.log_val
             }
             
             $scope.search = function(){
@@ -150,7 +154,7 @@ angular.module('filmak.in',['ngCookies'])
             
                 }
             
-                $http.post('search/search_put.php',$scope.data)
+                $http.post('data/put/put_search_string.php',$scope.data)
             
                     .success(function(response){
             
@@ -164,7 +168,10 @@ angular.module('filmak.in',['ngCookies'])
             
             console.log("LOGOUT FIRED")
 
+            $scope.log_val = false
+
             Auth.logout()
+
 
         }
         
@@ -172,7 +179,7 @@ angular.module('filmak.in',['ngCookies'])
 
         $scope.videoID = []
 
-        $http.post('data/get_video_details_new.php')
+        $http.post('data/get/get_video_details_new.php')
             
             .then(function(response){
             
@@ -181,7 +188,7 @@ angular.module('filmak.in',['ngCookies'])
                 console.log($scope.responses_new)
         
         })
-        $http.post('data/get_video_details_trending.php')
+        $http.post('data/get/get_video_details_trending.php')
             
             .then(function(response){
             
@@ -190,7 +197,7 @@ angular.module('filmak.in',['ngCookies'])
                 console.log($scope.responses_trending)
         
         })
-        $http.post('data/get_video_details_popular.php')
+        $http.post('data/get/get_video_details_popular.php')
             
             .then(function(response){
             
@@ -215,7 +222,7 @@ angular.module('filmak.in',['ngCookies'])
     .controller('searchController',function($scope,$http,$window){
 
         console.log("searchController RUNNING")
-        $http.post('search/search_get.php')
+        $http.post('data/get/get_search_results.php')
         .success(function(response){
             console.log(response)
             $scope.responses = response;
@@ -240,7 +247,7 @@ angular.module('filmak.in',['ngCookies'])
         }
 
         
-        $http.post("profile/fetch_user_data.php")
+        $http.post("data/get/get_user_data_for_profile.php")
 
             .success(function(response){
 
@@ -315,7 +322,7 @@ angular.module('filmak.in',['ngCookies'])
 
         console.log("videoDetailsController RUNNING!")
 
-        $http.post('videoDetailsFetch.php')
+        $http.post('data/get/get_video_details_for_userClicked.php')
         .then(function(response){
             console.log(response)
           $scope.title = response.data[0].title;
@@ -329,7 +336,7 @@ angular.module('filmak.in',['ngCookies'])
         
       })
         //fetches CastDetails
-        $http.post('castDetailsFetch.php')
+        $http.post('data/get/get_cast_details_for_userClicked.php')
         .then(function(response){
             //data[1] - filmak users
             console.log(response.data[1])
@@ -369,7 +376,7 @@ angular.module('filmak.in',['ngCookies'])
     .controller('viewController',function($scope,$http){
 
  
-        $http.post('fetch_user_data_for_view.php')
+        $http.post('data/get/get_user_data_for_view.php')
         .success(function(response){
 
             console.log(response)
@@ -422,7 +429,7 @@ angular.module('filmak.in',['ngCookies'])
             
              
               
-                    $http.post('imageUpload.php', fd, {
+                    $http.post('data/put/upload_image_to_server.php', fd, {
                
                   transformRequest: angular.identity,
                
@@ -471,7 +478,7 @@ angular.module('filmak.in',['ngCookies'])
             
                         console.log($scope.data)
             
-                        $http.post('youtube/save_data.php',$scope.data)
+                        $http.post('data/put/put_video_details.php',$scope.data)
             
                             .success(function(response){
             
@@ -561,7 +568,7 @@ angular.module('filmak.in',['ngCookies'])
 
             console.log("SUBMIT_PROFILE - PROFILE SERVICE")
             
-            $http.post('profile/update_profile.php',data)
+            $http.post('data/put/update_profile.php',data)
 
             .success(function(response){
             
@@ -575,7 +582,7 @@ angular.module('filmak.in',['ngCookies'])
             
             console.log("SUBMIT_CONTACT - profile service")
             
-            $http.post('profile/update_contact.php',data)
+            $http.post('data/put/update_contact.php',data)
             
             .success(function(response){
             
@@ -586,7 +593,7 @@ angular.module('filmak.in',['ngCookies'])
             
             console.log("FETCHING USER DATA")
             
-            $http.post("profile/fetch_user_data.php",data)
+            $http.post("data/get/get_user_data_for_profile.php",data)
             
             .success(function(response){
             
@@ -617,13 +624,15 @@ angular.module('filmak.in',['ngCookies'])
         
                 if(response[0] == '1'){
                     
-                    console.log("LOGGED IN - COOKIE CREATED")
+                    console.log("LOGGED IN")
 
-                    $cookies.put('logval','true')
+                    //$cookies.put('logval','true')
 
                     //SHOULD BE REFRESHED!
-                    $window.location.reload()
+                    
                     $window.location.href = 'home.html'
+
+                    $window.location.reload()
         
                 }
         
@@ -640,24 +649,17 @@ angular.module('filmak.in',['ngCookies'])
         
         service.logout = function(){
         
-            $cookies.remove('name')
-            $cookies.remove('username')
-            $cookies.remove('logval')
+           
+           
             $http.post('login/logout.php');
+
+            $window.location.href = 'home.html'
 
             console.log("LOGOUT")
         
         }
         
-        service.isLoggedIn = function(){
-        
-            var logval = $cookies.get('logval');
-            if(logval == 'true'){
-                return true
-            }
-            return false
-        
-        }
+
         return service;
     })
     
@@ -668,7 +670,7 @@ angular.module('filmak.in',['ngCookies'])
 
         service.view_up = function(data){
 
-            $http.post('video_view_up.php',data)
+            $http.post('data/video_view_up.php',data)
             
             .success(function(response){
 

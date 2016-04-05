@@ -1,3 +1,7 @@
+<?php
+session_start();
+$_SESSION['view_username'] = $_REQUEST['username'];
+?>
 <!DOCTYPE html>
 <html lang="en" ng-app="filmak.in">
   <head>
@@ -74,7 +78,7 @@
     </div>
 </div>
 <!--tabs-->
-<div ng-controller="formController" ng-cloak>
+<div ng-controller="viewController" ng-cloak>
 
   <div class="col-sm-12 well bxclr">
 
@@ -96,47 +100,45 @@
       
      Profile name:
       
-      <span style="color:red" ng-show="!isEditable()">
-        {{profile_name}}
-      </span>
+      
+        {{profile.profile_name}}
+      
       <br>
       
       Gender:
       
-    <span ng-show="!isEditable()">
-      {{gender}}
-    </span>
+    
+      {{profile.gender}}
+ 
     <br>
 
       Field of Expertise:
       
-  <span ng-show="!isEditable()">
-    {{field_of_expertise}}
-  </span>
+
+    {{profile.field}}
+  
   <br>
       Birth year:
-      
-      <span ng-show="!isEditable()">
-        {{birth_year}}
-      </span>
+
+        {{profile.birth_year}}
+
 <br>
       Birth Date:
      
-    <span ng-show="!isEditable()">
-      {{birth_date}}
-    </span>
+      {{profile.birth_date}}
+    
       <br>
       Prior Experience:
       
-      <span ng-show="!isEditable()">
-        {{experience}}
-      </span>
+     
+        {{profile.experience}}
+  
       <br>
       Tell about yourself in 100 words:
    
-    <span ng-show="!isEditable()">
-      {{about}}
-    </span>
+   
+      {{profile.about}}
+
     <br>
       
     
@@ -148,16 +150,14 @@
     <div role="tabpanel" class="tab-pane tabclr" id="contact">
       
       Contact Number:
-      
-      <span ng-show="!isEditable()">
-        {{contact_number}}
+     
+        {{profile.contact_number}}
       </span>
       <br><br>
 
       Email-ID:
       
-      <span ng-show="!isEditable()">
-        {{email_id}}
+        {{profile.email_id}}
       </span>
       
       

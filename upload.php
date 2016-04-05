@@ -14,7 +14,7 @@
     <!--jQuery-->
     <script src="jquery.js"></script>  
     <script src="bootstrap/js/bootstrap.js"></script>
-    <link href='https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Pacifico' rel='stylesheet' type='text/css'>
+    
     
     <style>body { padding-bottom: 70px; }</style>
  
@@ -42,13 +42,47 @@
     
       <div class="box" align="center">
      <!--div class="box-title"><h3>LOGIN</h3></div-->
-    <form ng-submit = "submit()" enctype="multipart/form-data">
+    
 
     <div class="form-group">
+      <div ng-show="isUploaded()">
+        <form name = "cast" ng-submit="add_cast()">
+        <label for="cast">Cast</label>
+      <input type="text" class="form-control"  placeholder="Member name " ng-model="member_name" required>
+      {{error_cast}}
+      
+      <select class="form-control" ng-model="field" required>
+      <option value="director">Director</option>
+      <option value="actor">Actor</option>
+      <option value="producer">Producer</option>
+      <option value="cinematographer">Cinematographer</option>
+      <option value="editor">Editor</option>
+      <option value="sfx">SFX</option>
+      <option value="lighting">Lighting</option>
+      <option value="composer">Composer</option>
+      <option value="singer">Singer</option>
+      <option value="instrumentalist">Instrumentalist</option>
+      <option value="scriptwriter">Scriptwriter</option>
+    </select>
+          <label for="member">Filmak user</label>
+      <input type="radio" name="isMember" ng-model="isMember" value="1" required>
+<br>
+      <label for="member">Others</label>
+
+      <input type="radio" name="isMember" ng-model="isMember" value="0" required>
+      <br>
+      <input class="btn btn-default" ng-click="add_cast()" value="add"></button>
+      <br>
+      <br>
+      <button type="button" class="btn btn-default" value="done">
+    </form>
+    </div>
+      <div ng-show="!isUploaded()">
+        <form name = "video" ng-submit = "submit()" enctype="multipart/form-data">
       <label for="videoid">Video URL</label>
       <input type="text" class="form-control"  placeholder="VideoURL" ng-model="videoURL" required>
       <span>{{error}}</span>
-    </div>
+    
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" class="form-control"  placeholder="Title" ng-model="title" required>
@@ -68,6 +102,7 @@
   </div>
         <input type="submit" class="btn btn-default">
     </form>
+  </div>
   
   </div>
   

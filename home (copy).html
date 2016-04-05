@@ -4,12 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-signin-client_id" content="719229338900-2o1tlht9lbr9vielvdfhug5psfn029ul.apps.googleusercontent.com">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>filmak.in</title>
     <link rel="icon" href="fav.png" type="image/png" sizes="16x16">
-
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="slider/css/demo.css" type="text/css" media="screen">
@@ -30,10 +27,8 @@
     <script src="angular/angular-cookies.js"></script>
     <script src="angular/filmak.js"></script>
     <script src="angular/angular-cookies.js"></script>
-
     
   </head>
-
   <body ng-cloak>
     <!--outer container for check - further will change it with col-sm-8 for ads-->
     <div ng-controller="mainController as mainCtrl">
@@ -45,13 +40,7 @@
         <img src="logo.png" alt="brand">
       </a>
     </div>
-    <!--Add a button for the user to click to initiate auth sequence -->
     
-    <div ng-hide="show()">
-   <div ng-controller="googleController as googleCtrl">
-   </div>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  </div>
         <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
     <input type="text" class="form-control sharp" placeholder="Search" ng-model="search_string">
@@ -59,7 +48,7 @@
   <button type="submit" class="btn btn-default sharp" ng-click = "search()">Submit</button>
   </form>
               <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi{{notyet_name}}<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
             <ul class="nav navbar-nav navbar-right"><li><a href="login.html" class="btn btn-default" type="button">Login</a></li></ul>

@@ -21,7 +21,7 @@
 	color:#1bbb9b;
 }
 .headclr{
-	color:#20585a;
+	color:#ffffff;
 }
 .videopadd{
 	padding: 0px 0px 0px 130px;
@@ -37,7 +37,7 @@
 }
 .tabclr{
 	background-color: #1bbb9b;
-  color:#1bbb9b;
+  color:#213140;
 }
 .bxclr{
 	background-color: #213140;
@@ -60,15 +60,26 @@
 
 
 .btn-edit{
-  background-color: #ffffff;
+  background-color: #213140 ;
+  border: 2px solid transparent;
+  border-color: #fff;
+
   padding: 3px;
-  margin-left:90%;
+  padding-top: 5px;
+  margin-left:45%;
   margin-bottom: 10px; 
 
 }
+.btn-edit:hover,.btn-edit:focus{
+    border-color: #1bbb9b;
+    color:#1bbb9b;
+}
 
 .pads{
-  margin-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  border-bottom:#fff solid 1px;
 }
 .list{
   width:500px;
@@ -93,6 +104,8 @@
 .cover img {
     max-width:100%;
     z-index:1;
+    border:#d0efff solid 3px;
+    border-radius: 2px;
 }
 .profile {
     display:block;
@@ -122,10 +135,10 @@
 }
 
 @font-face {
-  font-family: "FoxandCat";
+  font-family: "Fox & Cat";
   /*font-style:  normal;
   font-weight: 400;
-  */src: url(FoxandCat.ttf) format('truetype');
+  */src: url(Fox & Cat-webfont.woff) format('woff');
   }
 
 
@@ -133,22 +146,22 @@
 /*!this is for flex slider!*/
 .hh{
   padding: 8px;
-  font-family: "FoxandCat";
+  font-family: "Fox & Cat";
 }
 .hh a{
-  color:#1bbb9b;
+  color:#ffffff;
    margin: 0 0 8px;
-  font: normal 20px "FoxandCat";
+  font: normal 20px "Fox & Cat";
 }
 .hh  a:hover,
 .hh a:focus{
-  color:#ffffff; 
+  color:#1bbb9b; 
   text-decoration: none;
 }
 .hh p{
-  color:#1bbb9b;
+  color:#ffffff;
    
-  font: normal 15px "FoxandCat";
+  font: normal 15px "Fox & Cat";
 }
 
 .box{
@@ -158,6 +171,9 @@
   width: 500px;
   padding: 20px;
   color:#ffffff;
+  border-radius: 1px;
+  border: 2px;
+  border-color: #fff;
 }
 .box-title{
   position: relative;
@@ -173,8 +189,20 @@
   line-height: 20px;
    
 }
+.bor{
+   border:#fff solid 3px;
+   border-radius: 2px; 
+}
 
    nav.navbar{
     -webkit-transition:all 0.4s ease;
 transition:alll 0.4s ease;
+   }
+
+   .schcol a{
+    color:#fff;
+   }
+   .schcol a:hover{
+    color:#20585a;
+    text-decoration: none;
    }

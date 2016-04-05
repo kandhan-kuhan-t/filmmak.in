@@ -10,7 +10,7 @@ $username = $request->username;
 
 $password = $request->password;
 
-$query = "select 1,name from users where username = '$username' and password = '$password'";
+$query = "select 1,profile_name from users where username = '$username' and password = '$password'";
 
 $query_run = mysqli_query($conn,$query);
 

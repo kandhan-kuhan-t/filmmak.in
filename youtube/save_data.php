@@ -12,5 +12,6 @@ $duration = $request->duration;
 $query = "insert into videos(username,videoID,title,description,genre,duration) values('$username','$videoID','$title','$description','$genre','$duration')";
 $query_run = mysqli_query($conn,$query) or die(mysqli_connect_error());
 $val = 1;
+$_SESSION['upload_videoID'] = $videoID;
 echo json_encode($val);
 ?>

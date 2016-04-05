@@ -50,9 +50,9 @@ if(!$_SESSION['username']){
     
         <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-    <input type="text" class="form-control sharp" placeholder="Search" ng-model="search_string">
+    <input type="text" class="form-control sharp" placeholder="Search">
   </div>
-  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
+  <button type="submit" class="btn btn-default sharp">Submit</button>
   </form>
               <div ng-show="show()">
              <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
@@ -175,26 +175,21 @@ if(!$_SESSION['username']){
          <li class="list-group-item">
              Tell about yourself in 100 words:
       <div ng-show="isEditable()">
-      <input type="textarea" ng-model="about" />
+      <textarea ng-model="about" rows="3" ></textarea>
     </div>
     <span ng-show="!isEditable()">
       {{about}}
     </span>
          </li>
         </ul>
-    <div ng-show="isEditable()">
-      <input type="submit" class="btn btn-default">
-    </div>
-    <div ng-show="!isEditable()">
-          <button type="button" class="btn btn-edit" ng-click="edit()">Edit&nbsp;</button>
-        </div>
-    </form>
+    
+    <!--/form-->
     </div>
       
   
     
     <div role="tabpanel" class="tab-pane tabclr" id="contact">
-      <form>
+      <!--form-->
        <ul class="list-group">
         <li class="list-group-item">
       Contact Number:
@@ -215,10 +210,17 @@ if(!$_SESSION['username']){
       </span>
     </li>
        </ul>
-      </form>
+      <!--/form-->
+
     </div>
     </div>
-    
+    <div ng-show="isEditable()">
+      <input type="submit" class="btn btn-edit">
+    </div>
+    <div ng-show="!isEditable()">
+          <button type="button" class="btn btn-edit" ng-click="edit()">&nbsp;Edit&nbsp;</button>
+        </div>
+    </form>
   </div>
 
 </div>

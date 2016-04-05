@@ -35,6 +35,69 @@ angular.module('filmak.in',['ngCookies'])
         
         }])
     
+
+    .controller('googleController', function($scope,$http,$window) {
+    
+    function onSignIn(googleUser) {
+    
+        var profile = googleUser.getBasicProfile();
+    
+    //console.log('ID: ' + profile.getId());
+    
+    //console.log('Name: ' + profile.getName());
+    
+    //console.log('Image URL: ' + profile.getImageUrl());
+    
+        $scope.data = {
+    
+        'username' : profile.getEmail()
+    
+        }
+    
+    $http.post('login/register_user.php',$scope.data)
+   
+        .success(function(){
+    
+            $window.location.href = 'register.html'
+   
+        })
+    
+    }
+   
+   window.onSignIn = onSignIn;
+ 
+   
+})
+
+    .controller('registrationController',function($scope,$http,$window){
+
+        $scope.profile_name;
+        
+        $scope.password;
+
+        
+
+        $scope.submit = function(){
+
+            $scope.data = {
+
+            'profile_name' : $scope.profile_name,
+
+            'password' : $scope.password
+        }
+
+            $http.post('login/register_add_user.php',$scope.data)
+
+                .success(function(response){
+
+                $window.location.href = 'login.html'
+                //console.log(response)
+                })
+        }
+    
+    })
+
+
     .controller('loginController',function($scope,$rootScope,$http,Auth,$cookies){
     
         console.log("LOGIN CONTROLLER RUNNING!");
@@ -66,6 +129,7 @@ angular.module('filmak.in',['ngCookies'])
                         console.log(response)
                     
                         $scope.username = response.data[0]
+                        $scope.name = response.data[1]
                         
                 
                 })
@@ -188,7 +252,7 @@ angular.module('filmak.in',['ngCookies'])
                        
                 
                         $scope.username = $scope.userData.username
-                        $scope.profile_name = $scope.userData.name
+                        $scope.profile_name = $scope.userData.profile_name
                         $scope.gender = $scope.userData.gender
                         $scope.field_of_expertise = $scope.userData.field
                         if(($scope.userData.birth_year))$scope.birth_year = Number($scope.userData.birth_year)
@@ -247,7 +311,7 @@ angular.module('filmak.in',['ngCookies'])
 
     })
     
-    .controller('videoDetailsController',function($scope,$http,$cookies,$timeout,Video){
+    .controller('videoDetailsController',function($scope,$http,$cookies,$timeout,Video,$window,$sce){
 
         console.log("videoDetailsController RUNNING!")
 
@@ -256,16 +320,27 @@ angular.module('filmak.in',['ngCookies'])
             console.log(response)
           $scope.title = response.data[0].title;
           $scope.description = response.data[0].description;
-          console.log(response.data[0].description)
+          //console.log(response.data[0].description)
           $scope.views = response.data[0].views;
           $scope.genre = response.data[0].genre;
           $scope.videoID = response.data[0].videoID;
-          $scope.casts = response.data[1].cast;
-          for(cast in $scope.casts){
-            console.log($scope.casts[cast])
-          }
 
+          
+        
+      })
+        //fetches CastDetails
+        $http.post('castDetailsFetch.php')
+        .then(function(response){
+            //data[1] - filmak users
+            console.log(response.data[1])
+            $scope.filmak_users = response.data[1]
+            //data[0] - non-filmak users
+            console.log(response.data[0])
+            $scope.non_filmak_users = response.data[0]
         })
+      
+          
+        
        
         $timeout(function(){
        
@@ -277,21 +352,57 @@ angular.module('filmak.in',['ngCookies'])
             Video.view_up($scope.data)
         },30000)
 
+        $scope.goto_profile = function(username){
+
+            $window.location.href = "view.php?username="+username
+        }
+        $scope.showError = function(){
+            console.log("NOT A MEMBER")
+            $scope.error = $sce.trustAsHtml("Not a Member")
+        }
+
 
 
 
     })
 
+    .controller('viewController',function($scope,$http){
+
+ 
+        $http.post('fetch_user_data_for_view.php')
+        .success(function(response){
+
+            console.log(response)
+            $scope.profile = response;
+            console.log($scope.profile)
+            //$scope.profile_name = response.data.profile_name
+        })
+    })
+
     .controller('filmSubmissionController',function($scope,$http,Auth,$cookies,$window){
         
-        console.log("videoCtrl RUNNING");
-        
+        console.log("filmSubmissionCtrl RUNNING");
+
+        $scope.upload_val = false
+        //If the video has been uploaded,returns true. Cast details to be submitted then.
+        $scope.isUploaded = function(){
+
+            return $scope.upload_val
+        }
+
+        //Video Details
         $scope.videoURL;
         $scope.title;
         $scope.description;
         $scope.genre;
-
+        //Cast Details
+        $scope.member_name
+        $scope.isMember;
+        $scope.field;
+        //Function to upload File. Fucked up two hours of life beyond anything
          $scope.uploadFile = function(){
+
+                
                
                var file = $scope.myFile;
                
@@ -309,7 +420,9 @@ angular.module('filmak.in',['ngCookies'])
                
                fd.append('videoID',$scope.videoID)
             
-               $http.post('imageUpload.php', fd, {
+             
+              
+                    $http.post('imageUpload.php', fd, {
                
                   transformRequest: angular.identity,
                
@@ -317,14 +430,19 @@ angular.module('filmak.in',['ngCookies'])
                
                })
             
-                    .success(function(response){
+                .success(function(response){
                         
                         console.log("IMAGE UPLOADED")
                         
                         console.log(response)
-                    })
-        }
+                    
+                        return response
+                        })
+           
+                }
+                //frustation
 
+                //Function to add video to database,calls uploadFile()
         $scope.submit = function(){
             
             //sanitize the videoURL to videoID
@@ -361,9 +479,13 @@ angular.module('filmak.in',['ngCookies'])
             
                                     console.log("VIDEO DETAILS ADDED TO MYSQL")
            
+                                    
                                     $scope.uploadFile()
+                                    //changes the upload_val to true so that isUploaded() returns true
+                                    $scope.upload_val = true
+                                    
 
-                                    $window.location.href = 'home.html'
+                                    
         
                                 }
 
@@ -381,7 +503,53 @@ angular.module('filmak.in',['ngCookies'])
             })
         
         }
+        $scope.putUserIntoDb = function(){
 
+             $http.post('data/put/cast_add.php',$scope.data)
+                
+                            .success(function(response){
+
+                                console.log("CAST ADDED")
+
+                            })
+    } 
+        $scope.add_cast = function(){
+
+            $scope.data = {
+
+                'member_name' : $scope.member_name,
+                'field'    : $scope.field,
+                'isMember'    :$scope.isMember
+            }
+            console.log($scope.data)
+
+            if($scope.isMember == '1'){
+
+                $http.post('data/check_if_user.php',$scope.data)
+
+                    .success(function(response){
+
+                        console.log($scope.data)
+
+                        if(response == '1'){
+
+                            $scope.putUserIntoDb();
+
+                        }
+                        else{
+
+                            $scope.error_cast = "Invalid Username"
+                        }
+
+                    })
+
+            }
+            else{
+
+                $scope.putUserIntoDb();
+            }
+        }
+        
     })
  	
 

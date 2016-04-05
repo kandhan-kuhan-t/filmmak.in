@@ -104,8 +104,15 @@ $title = $result[2];
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active tabclr" id="descrip" style="color:white">{{description}}</h2></div>
     
-    <div role="tabpanel" class="tab-pane tabclr" id="cast" style="color:white"><div ng-repeat="cast in casts">{{cast}}</div></div>
- 
+    <div role="tabpanel" class="tab-pane tabclr" id="cast" style="color:white">
+      
+      <a ng-repeat="filmak_user in filmak_users" ng-click="(goto_profile(filmak_user.member_name))">
+        {{filmak_user.profile_name}}</a>
+
+      <p ng-repeat="non_filmak_user in non_filmak_users" ng-click="showError()">
+        {{non_filmak_user.member_name}}</p>
+    <div ng-bind-html="error"></div>
+    </div>
     <div role="tabpanel" class="tab-pane tabclr" id="other" style="color:white">{{genre}}</div>
   </div>
 

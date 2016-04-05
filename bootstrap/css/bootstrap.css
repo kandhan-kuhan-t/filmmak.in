@@ -7,11 +7,14 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 @font-face {
-  font-family:  "FoxandCat";
-  src: url(FoxandCat.ttf) format('truetype');
+  font-family:  "Fox & Cat";
+  font-style:  normal;
+  font-weight: 400;
+  src: url(
+    Fox & Cat.ttf) format('truetype');
 }
 html {
-  font-family:  "FoxandCat";
+  font-family:  "Fox & Cat";
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -1088,11 +1091,11 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family:  "FoxandCat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:  "Fox & Cat","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
-  background-color: #fff;
+  color: #fff;
+  background-color: #213140;
 }
 input,
 button,
@@ -1546,7 +1549,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family:  "FoxandCat",Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family:  "Fox & Cat",Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 code {
   padding: 2px 4px;
@@ -3037,7 +3040,7 @@ select[multiple].input-lg {
           user-select: none;
   background-image: none;
   border: 2px solid transparent;
-  border-radius: 0px;
+  border-radius: 1px;
 }
 .btn:focus,
 .btn:active:focus,
@@ -3045,9 +3048,9 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
+  /*outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline-offset: -2px;*/
 }
 .btn:hover,
 .btn:focus,
@@ -3060,8 +3063,8 @@ select[multiple].input-lg {
 .btn.active {
   background-image: none;
   outline: 0;
-  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
-          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+  /*-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);*/
 }
 .btn.disabled,
 .btn[disabled],
@@ -3108,8 +3111,8 @@ fieldset[disabled] a.btn {
 .btn-default:active.focus,
 .btn-default.active.focus,
 .open > .dropdown-toggle.btn-default.focus {
-  color: #333;
-  background-color: #d4d4d4;
+  color: #fff;
+  background-color: #213140 ;
   border-color: #8c8c8c;
 }
 .btn-default:active,
@@ -5522,9 +5525,10 @@ button.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  background-color: #1bbb9b;
+  /*border: 3px solid transparent;*/
+  border-color: #fff;
+  border-radius: 1px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
           box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
@@ -6065,7 +6069,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family:  "FoxandCat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:  "Fox & Cat","Pacifico","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
@@ -6184,7 +6188,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family:  "FoxandCat","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:  "Fox & Cat","Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: normal;

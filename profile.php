@@ -1,9 +1,8 @@
 <?php
 session_start();
-
 if(!$_SESSION['username']){
-  header('location:home.html');
-  die;
+  header('location:signin.php');
+  die();
 }
 ?>
 <!DOCTYPE html>
@@ -43,23 +42,23 @@ if(!$_SESSION['username']){
       <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
       <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
     
         <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-    <input type="text" class="form-control sharp" placeholder="Search">
+    <input type="text" class="form-control sharp" placeholder="Search" ng-model="search_string">
   </div>
-  <button type="submit" class="btn btn-default sharp">Submit</button>
+  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
+  <br/>
+    Video<input type="radio" ng-model="searchType" value="video">
+  Profile<input type="radio" ng-model="searchType" value="profile">
   </form>
               <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
-           <div ng-hide="show()">
-            <ul class="nav navbar-nav navbar-right"><li><a href="login.html" class="btn btn-default" type="button">Login</a></li></ul>
-          </div>
 
          
   </div>
@@ -74,11 +73,11 @@ if(!$_SESSION['username']){
 <!--cover-->
   <div class="main">
     <div class="cover">
-        <img src="cover.png" />
+        <img ng-src="images/coverpic/{{username}}" />
     </div>
     <div class="profile">
       <!--size 200px * 200px-->
-        <img src="profile.png" />
+        <img ng-src="images/profilepic/{{username}}" />
     </div>
 </div>
 <!--tabs-->
@@ -91,6 +90,8 @@ if(!$_SESSION['username']){
     <li role="presentation" class="active"><a href="#profile" aria-controls="Profile" role="tab" data-toggle="tab">Profile</a></li>
     
     <li role="presentation"><a href="#contact" aria-controls="conatactinfo" role="tab" data-toggle="tab">Contact Info</a></li>
+
+    <li role="presentation"><a href="#picture" aria-controls="picture" role="tab" data-toggle="tab">Profile/Cover Photo</a></li>
     
       </ul>
 
@@ -102,10 +103,13 @@ if(!$_SESSION['username']){
   <div class="tab-content">
 
     <div role="tabpanel" class="tab-pane active tabclr" id="profile">
+
+            
+            
       <form ng-submit="submit_profile()">
         <ul class="list-group">
           <li class="list-group-item">
-            Profile name:
+           Full Name:
            <div ng-show="isEditable()">
              <input  type = "text" ng-model="profile_name"/>
            </div>
@@ -116,72 +120,65 @@ if(!$_SESSION['username']){
          <li class="list-group-item">
           Gender:
           <div ng-show="isEditable()">
-           <input type="radio" name="gender" value="male" ng-model="gender" />Male
-           <input type="radio" name="gender" value="female" ng-model="gender" />Female
-           <input type="radio" name="gender" value="other" ng-model="gender" />Other
+           <input type="radio" name="gender" value="Male" ng-model="gender" />Male
+           <input type="radio" name="gender" value="Female" ng-model="gender" />Female
+           <input type="radio" name="gender" value="Others" ng-model="gender" />Other
           </div>
           <span ng-show="!isEditable()">
-            {{gender}}
+            {{gender|nullFilter}}
           </span>
          </li>
          <li class="list-group-item">
             Field of Expertise:
       <div ng-show="isEditable()">
       <select name="fieldofexperise" ng-model="field_of_expertise">
-      <option value="director">Director</option>
-      <option value="actor">Actor</option>
-      <option value="producer">Producer</option>
-      <option value="cinematographer">Cinematographer</option>
-      <option value="editor">Editor</option>
-      <option value="sfx">SFX</option>
-      <option value="lighting">Lighting</option>
-      <option value="composer">Composer</option>
-      <option value="singer">Singer</option>
-      <option value="instrumentalist">Instrumentalist</option>
-      <option value="scriptwriter">Scriptwriter</option>
+      <option value="Director" selected>Director</option>
+      <option value="Actor">Actor</option>
+      <option value="Producer">Producer</option>
+      <option value="Cinematographer">Cinematographer</option>
+      <option value="Editor">Editor</option>
+      <option value="Sfx">SFX</option>
+      <option value="Lighting">Lighting</option>
+      <option value="Composer">Composer</option>
+      <option value="Singer">Singer</option>
+      <option value="Instrumentalist">Instrumentalist</option>
+      <option value="Scriptwriter">Scriptwriter</option>
     </select>
   </div>
   <span ng-show="!isEditable()">
-    {{field_of_expertise}}
+    {{field_of_expertise|nullFilter}}
   </span>
          </li>
          <li class="list-group-item">
-             Birth year:
+             Date Of Birth:
       <div ng-show="isEditable()">
-        <input type="number" name="birthyear" ng-model="birth_year" />
+        <input type="date" name="date_of_birth" ng-model="date_of_birth" />
       </div>
       <span ng-show="!isEditable()">
-        {{birth_year}}
+        {{date_of_birth|date:'dd-MM-yyyy'}}
       </span>
          </li>
          <li class="list-group-item">
-            Birth Date:
-      <div ng-show="isEditable()">
-      <input type="number" name="birthdate" ng-model="birth_date" />
-    </div>
-    <span ng-show="!isEditable()">
-      {{birth_date}}
-    </span>
-         </li>
-         <li class="list-group-item">
-            Prior Experience:
+            Number of Projects you have previously worked in:
       <div ng-show="isEditable()">
       <input type="textarea" ng-model="experience" />
       </div>
       <span ng-show="!isEditable()">
-        {{experience}}
+        {{experience|negativeFilter}}
       </span>
          </li>
          <li class="list-group-item">
-             Tell about yourself in 100 words:
+             Describe about yourself in 100 words:
       <div ng-show="isEditable()">
       <textarea ng-model="about" rows="3" ></textarea>
     </div>
     <span ng-show="!isEditable()">
-      {{about}}
+      {{about|nullFilter}}
     </span>
          </li>
+
         </ul>
+            
     
     <!--/form-->
     </div>
@@ -195,6 +192,10 @@ if(!$_SESSION['username']){
       Contact Number:
       <div ng-show="isEditable()">
       <input type="text" ng-model="contact_number"/>
+      Public:
+      <input type="radio" ng-model="contact_number_access" name="contact_number_access" value="1"/>
+      Private:
+      <input type="radio" ng-model="contact_number_access" name="contact_number_access" value="0"/>
       </div>
       <span ng-show="!isEditable()">
         {{contact_number}}
@@ -211,16 +212,31 @@ if(!$_SESSION['username']){
     </li>
        </ul>
       <!--/form-->
+     
+    
 
     </div>
-    </div>
-    <div ng-show="isEditable()">
+     <div ng-show="isEditable()">
       <input type="submit" class="btn btn-edit">
+        <button type="button" class="btn btn-edit" ng-click="cancel()">Cancel</button>
     </div>
+    </form>
+    <div role="tabpanel" class="tab-pane tabclr" id="picture">
+      <form ng-submit="profilepicUpload()"> 
+            <input type="file" id="exampleInputFile" file-model="profilepic">
+            <input type="submit" value="profilepic"/>
+            </form>
+            <form ng-submit="coverpicUpload()">
+              <input type="file" id="exampleInputFile" file-model="coverpic">
+              <input type="submit" value="coverpic"/>
+            </form>
+    </div>
+    
     <div ng-show="!isEditable()">
           <button type="button" class="btn btn-edit" ng-click="edit()">&nbsp;Edit&nbsp;</button>
+
         </div>
-    </form>
+    
   </div>
 
 </div>

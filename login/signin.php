@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['username'])){
+  echo '<script>alert("Already Logged in")</script>';
+  header('location:home.html');
+}
+?>
 <!DOCTYPE html>
 <html lang="en" ng-app="filmak.in">
   <head>
@@ -27,39 +34,35 @@
   </head>
   <body ng-cloak>
 <!-- FORMAT IT ANAND -->
-  <div ng-controller="registrationController as registrationCtrl">
+
     <div class="container-fluid">
       <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="col-sm-12"><br></div>
-      <a class="mix" href="home.html">
+      <div class="container">
+      <div class="navbar-header">
+      <a class="navbar-brand" href="#">
         <img src="logo.png" alt="brand">
       </a>
-    </nav>
     </div>
+    
+        <form class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control sharp" placeholder="Search">
+  </div>
+  <button type="submit" class="btn btn-default sharp">Submit</button>
+  </form>
+</div>
+</div>
  <div class="container2 headclr">
 
-    <div class="box" align="center">
-     <!--div class="box-title"><h3>LOGIN</h3></div-->
-    <form ng-submit="submit()">
-  <div class="form-group">
-    <label for="Username">Profile Name</label>
-    <input type="text" class="form-control"  placeholder="Username" ng-model="profile_name">
-  </div>
-        <div class="form-group">
-    <label for="Password">Password</label>
-    <input type="password" class="form-control"  placeholder="Password" ng-model="password">
-  </div>
-  <div class="form-group">
-    <label for="confirm_password">Repeat Password</label>
-    <input type="password" class="form-control"  placeholder="Type your password again" ng-model="confirm_password">
-  </div>
-        <input type="submit" class="btn btn-default">
-    </form>
-  
-  </div>
+    <div class="col-sm-12">
+
+		<form ng-submit="login()" style="color:red">
+				username:<input type="email" ng-model="username">
+				Password:<input type="password" ng-model="password">
+				<input type="submit">
+		</form>
+	
+	</div>
 
 </div>
-
-
-  </div><!--loginCtrl ENDS-->
 </body>

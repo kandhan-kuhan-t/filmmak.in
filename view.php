@@ -39,7 +39,7 @@ $_SESSION['view_username'] = $_REQUEST['username'];
       <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
       <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
@@ -48,13 +48,15 @@ $_SESSION['view_username'] = $_REQUEST['username'];
   <div class="form-group">
     <input type="text" class="form-control sharp" placeholder="Search">
   </div>
-  <button type="submit" class="btn btn-default sharp">Submit</button>
+  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
+    Video<input type="radio" ng-model="searchType" value="video">
+  Profile<input type="radio" ng-model="searchType" value="profile">
   </form>
               <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
-            <ul class="nav navbar-nav navbar-right"><li><a href="login.html" class="btn btn-default" type="button">Login</a></li></ul>
+            <ul class="nav navbar-nav navbar-right"><li><a href="signin.php" class="btn btn-default" type="button">Login/SignUp</a></li></ul>
           </div>
 
          
@@ -70,11 +72,11 @@ $_SESSION['view_username'] = $_REQUEST['username'];
 <!--cover-->
   <div class="main">
     <div class="cover">
-        <img src="cover.png" />
+        <img src="images/coverpic/{{username}}" />
     </div>
     <div class="profile">
       <!--size 200px * 200px-->
-        <img src="profile.png" />
+        <img src="images/profilepic/{{username}}" />
     </div>
 </div>
 <!--tabs-->
@@ -96,76 +98,66 @@ $_SESSION['view_username'] = $_REQUEST['username'];
   <div class="tab-content">
 
     <div role="tabpanel" class="tab-pane active tabclr" id="profile">
-
-      
-     Profile name:
-      
-      
-        {{profile.profile_name}}
-      
-      <br>
-      
-      Gender:
-      
-    
-      {{profile.gender}}
- 
-    <br>
-
-      Field of Expertise:
-      
-
-    {{profile.field}}
-  
-  <br>
-      Birth year:
-
-        {{profile.birth_year}}
-
-<br>
-      Birth Date:
-     
-      {{profile.birth_date}}
-    
-      <br>
-      Prior Experience:
-      
-     
-        {{profile.experience}}
-  
-      <br>
-      Tell about yourself in 100 words:
-   
-   
-      {{profile.about}}
-
-    <br>
-      
-    
-
-
-      
+      <ul class="list-group">
+          <li class="list-group-item">
+            Profile name :
+           <span>
+               {{profile.profile_name}}
+           </span>
+         </li>
+      <li class="list-group-item">
+            Gender :
+           <span>
+             {{profile.gender|nullFilter}}
+           </span>
+         </li>
+      <li class="list-group-item">
+            Field of Expertise :
+           <span>
+              {{profile.field|nullFilter}}
+           </span>
+         </li>
+         <li class="list-group-item">
+            Date of Birth :
+           <span>
+               {{profile.dob|nullFilter}}
+           </span>
+         </li>
+         <li class="list-group-item">
+            Prior Experience :
+           <span>
+              {{profile.experience|nullFilter|negativeFilter}}
+           </span>
+         </li>
+         <li class="list-group-item">
+            About Myself:
+           <span>
+             {{profile.about|nullFilter}}
+           </span>
+         </li>
+       </ul>
     </div>
     
     <div role="tabpanel" class="tab-pane tabclr" id="contact">
       
-      Contact Number:
-     
-        {{profile.contact_number}}
-      </span>
-      <br><br>
+      <ul class="list-group">
+          <li class="list-group-item">
+            Contact number :
+           <span ng-show = "isPublic()">
+              {{profile.contact_number|nullFilter}}
+           </span>
+           <span ng-show = "!isPublic()">
+            Not available
+          </span>
 
-      Email-ID:
-      
-        {{profile.email_id}}
-      </span>
-      
-      
-
-
-
-      
-
+         </li>
+         <li class="list-group-item">
+            Email ID :
+           <span>
+              {{profile.email_id|nullFilter}}
+           </span>
+         </li>
+        </ul>
 </div>
     </div>
     

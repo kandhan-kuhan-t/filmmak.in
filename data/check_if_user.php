@@ -8,17 +8,19 @@ $request = json_decode($postdata);
 
 $member_name = $request->member_name;
 
-$query = "select 1 from users where username = '$member_name'";
+$query = "select 1,profile_name from users where username = '$member_name'";
 
 $query_run = mysqli_query($conn,$query);
 
-$result = mysqli_fetch_row($query_run);
+$result = mysqli_fetch_assoc($query_run);
 
 $response;
 
-if($result[0] == "1"){
+if($result['1'] == "1"){
 
-	$response = 1;
+	$response['status'] = 1;
+	$response['profile_name'] = $result['profile_name'];
+
 }
 
 else

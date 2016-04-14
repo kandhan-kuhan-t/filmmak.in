@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+
+  header('location:login.html');
+  die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" ng-app="filmak.in">
   <head>
@@ -30,7 +39,7 @@
   <div ng-controller="filmSubmissionController as filmCtrl">
     <div class="container-fluid">
        <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="col-sm-12">filmak.in</div>
+      <div class="col-sm-12"><br></div>
       <a class="mix" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
@@ -48,44 +57,49 @@
       <div ng-show="isUploaded()">
         <form name = "cast" ng-submit="add_cast()">
         <label for="cast">Cast</label>
-      <input type="text" class="form-control"  placeholder="Member name " ng-model="member_name" required>
+      <input type="text" class="form-control"  placeholder="{{placeholder_cast}} " ng-model="member_name" minlength = "1" maxlength = "40" required>
       {{error_cast}}
       
       <select class="form-control" ng-model="field" required>
-      <option value="director">Director</option>
-      <option value="actor">Actor</option>
-      <option value="producer">Producer</option>
-      <option value="cinematographer">Cinematographer</option>
-      <option value="editor">Editor</option>
-      <option value="sfx">SFX</option>
-      <option value="lighting">Lighting</option>
-      <option value="composer">Composer</option>
-      <option value="singer">Singer</option>
-      <option value="instrumentalist">Instrumentalist</option>
-      <option value="scriptwriter">Scriptwriter</option>
+      <option value="Director">Director</option>
+      <option value="Actor">Actor</option>
+      <option value="Producer">Producer</option>
+      <option value="Cinematographer">Cinematographer</option>
+      <option value="Editor">Editor</option>
+      <option value="Sfx">SFX</option>
+      <option value="Lighting">Lighting</option>
+      <option value="Composer">Composer</option>
+      <option value="Singer">Singer</option>
+      <option value="Instrumentalist">Instrumentalist</option>
+      <option value="Scriptwriter">Scriptwriter</option>
     </select>
           <label for="member">Filmak user</label>
-      <input type="radio" name="isMember" ng-model="isMember" value="1" required>
+          
+      <input type="radio" name="isMember" ng-model="isMember" value="1" ng-change="change()"required >
 <br>
       <label for="member">Others</label>
 
-      <input type="radio" name="isMember" ng-model="isMember" value="0" required>
+      <input type="radio" name="isMember" ng-model="isMember" value="0" ng-change="change()"required>
       <br>
+      <div ng-bind-html="help"></div>
       <input class="btn btn-default" ng-click="add_cast()" value="add"></button>
       <br>
       <br>
-      <button type="button" class="btn btn-default" value="done">
+
+       <div ng-repeat="addedCast in added_casts">{{addedCast}}</div>
+      <button type="button" class="btn btn-default" ng-click="done()">Done</button>
+
     </form>
     </div>
       <div ng-show="!isUploaded()">
         <form name = "video" ng-submit = "submit()" enctype="multipart/form-data">
       <label for="videoid">Video URL</label>
-      <input type="text" class="form-control"  placeholder="VideoURL" ng-model="videoURL" required>
+      <input type="text" class="form-control"  placeholder="Your videoURL, It looks something like this: 'https://www.youtube.com/watch?v=abcdef123'" ng-model="videoURL" required>
       <span>{{error}}</span>
     
     <div class="form-group">
       <label for="title">Title</label>
-      <input type="text" class="form-control"  placeholder="Title" ng-model="title" required>
+      <input type="text" class="form-control"  placeholder="Title" ng-model="title" minlength = "1" maxlength = "100" required>
     </div>
     <div class="form-group">
       <label for="description">Description</label>
@@ -93,12 +107,12 @@
     </div>
     <div class="form-group">
       <label for="genre">Genre</label>
-      <input type="text" class="form-control"  placeholder="Genre" ng-model="genre" required>
+      <input type="text" class="form-control"  placeholder="Genre" ng-model="genre" maxlength = "30" minlength = "3" required>
     </div>
     <div class="form-group">
     <label for="exampleInputFile">Thumbnails</label>
     <input type="file" id="exampleInputFile" file-model="myFile" required>
-    <p class="help-block">Poster/Screenshots of the film. Square sized images are prefered.</p>
+    <p class="help-block">Poster/Screenshots of the film. Square Dimensions(200x200,300x300..)</p>
   </div>
         <input type="submit" class="btn btn-default">
     </form>

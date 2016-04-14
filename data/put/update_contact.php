@@ -7,10 +7,12 @@ $request = json_decode($postdata);
 $username = $_SESSION['username'];
 $contact_number = $request->contact_number;
 $email_id = $request->email_id;
+$access = $request->access;
 $query = "update contact
 set 
 contact_number = '$contact_number',
-email_id = '$email_id'
+email_id = '$email_id',
+access = $access
 where 
 username = '$username'
 ";

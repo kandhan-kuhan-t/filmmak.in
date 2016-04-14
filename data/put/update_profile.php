@@ -7,19 +7,18 @@ $username = $_SESSION['username'];
 $name = $request->profile_name;
 $gender = $request->gender;
 $field = $request->field;
-$birth_year = $request->birth_year;
+$date_of_birth = $request->date_of_birth;
 $experience = $request->experience;
-$birth_date = $request->birth_date;
 $about = $request->about;
 $query = "update users_profile
 set profile_name = '$name',
 gender = '$gender',
 field = '$field',
-birth_year = '$birth_year',
-birth_date = '$birth_date',
+dob = '$date_of_birth',
 experience = '$experience',
 about = '$about'
 where username = '$username'
 ";
+echo '<script>console.log($scope.date_of_birth)</script>';
 $query_run = mysqli_query($conn,$query);
 ?>

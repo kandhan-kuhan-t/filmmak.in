@@ -5,7 +5,6 @@ $videoID = $_GET['videoID'];
 $query = "select * from videos where videoID = '$videoID'";
 $query_run = mysqli_query($conn,$query);
 $result = mysqli_fetch_row($query_run);
-echo '<script>console.log("AAA'.$result[0].'")</script>';
 $_SESSION['videoID'] = $_GET['videoID'];
 $title = $result[2];
 ?>
@@ -37,7 +36,7 @@ $title = $result[2];
       <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
       <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
@@ -47,13 +46,15 @@ $title = $result[2];
     <input type="text" class="form-control" placeholder="Search" ng-model="search_string">
   </div>
   <button type="submit" class="btn btn-default" ng-click="search()">Submit</button>
+    Video<input type="radio" ng-model="searchType" value="video">
+  Profile<input type="radio" ng-model="searchType" value="profile">
   </form>
 
     <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi{{name}}<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
-            <ul class="nav navbar-nav navbar-right"><li><a href="login.html" class="btn btn-default" type="button">Login</a></li></ul>
+            <ul class="nav navbar-nav navbar-right"><li><a href="signin.php" class="btn btn-default" type="button">Login/SignUp</a></li></ul>
           </div>
             </div>
 </nav>
@@ -71,21 +72,21 @@ $title = $result[2];
         
           <!-- 16:9 aspect ratio -->
           <div class="embed-responsive embed-responsive-16by9">
-         <iframe  src="https://www.youtube.com/embed/<?php echo $_GET['videoID'];?>?autoplay=1" frameborder="0" allowfullscreen></iframe>
+         <iframe  src="https://www.youtube.com/embed/<?php echo $_GET['videoID'];?>?autoplay=1&rel=0" frameborder="0" allowfullscreen></iframe>
             </div>
           <!-- 4:3 aspect ratio >
               <div class="embed-responsive embed-responsive-4by3">
                    <iframe class="embed-responsive-item" src="..."></iframe>
               </div><-->
           </div>
-          
-      </div>
-      <br><br><br><br><br><br><br><br>
       <div class="col-sm-12 vidtext well">
         <strong><h4>{{title}}</h4></strong>
           <h5><mark>&nbsp;{{views}} Views&nbsp;</mark></h5>
           <!--<h6>Upvote/Downvote</h6>-->
       </div>
+
+      </div>
+       
     </div>
 
 
@@ -102,18 +103,18 @@ $title = $result[2];
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active tabclr" id="descrip" style="color:white">{{description}}</h2></div>
+    <div role="tabpanel" class="tab-pane active tabclr" id="descrip" style="color:white"><br/>{{description}}</div>
     
     <div role="tabpanel" class="tab-pane tabclr" id="cast" style="color:white">
-      
+      <br/>
       <a ng-repeat="filmak_user in filmak_users" ng-click="(goto_profile(filmak_user.member_name))">
         {{filmak_user.profile_name}}</a>
 
       <p ng-repeat="non_filmak_user in non_filmak_users" ng-click="showError()">
-        {{non_filmak_user.member_name}}</p>
-    <div ng-bind-html="error"></div>
+        {{non_filmak_user.member_name}}&nbsp;&nbsp;<span ng-bind-html="error"></span></p>
+    
     </div>
-    <div role="tabpanel" class="tab-pane tabclr" id="other" style="color:white">{{genre}}</div>
+    <div role="tabpanel" class="tab-pane tabclr" id="other" style="color:white"><br/>{{genre}}</div>
   </div>
 
 </div>

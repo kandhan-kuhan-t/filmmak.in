@@ -123,8 +123,8 @@ html[xmlns] .flexslider .slides {
   overflow: hidden;
   opacity: 0;
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.8);
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #ffffff;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
@@ -136,7 +136,7 @@ html[xmlns] .flexslider .slides {
   font-size: 40px;
   display: inline-block;
   content: '\f001';
-  color: rgba(0, 0, 0, 0.8);
+  color: #ffffff;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
 }
 .flex-direction-nav a.flex-next:before {

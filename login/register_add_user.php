@@ -10,18 +10,18 @@ $request = json_decode($postdata);
 
 $profile_name = $request->profile_name;
 
+$display_name = $request->display_name;
+
 $password = $request->password;
+
+$sha_password = sha1($password);
 
 $username = $_SESSION['username_register'];
 
-$query1 = "update users set password = '$password',
-		   					profile_name = '$profile_name'
- 		   where username = '$username'";
+$query1 = "insert into users(username,password,profile_name) values('$username','$sha_password','$profile_name');";
 
-mysqli_query($conn,$query1);
+$query1 .= "insert into users_profile(username,profile_name,display_name) values('$username','$profile_name','$display_name')";
 
-$query2 = "insert into users_profile(username,profile_name) values('$username','$profile_name')";
-
-mysqli_query($conn,$query2);
+mysqli_multi_query($conn,$query1);
 
 ?>

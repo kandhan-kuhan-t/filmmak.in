@@ -23,13 +23,16 @@
     <style>body { padding-bottom: 70px; }</style>
     <!--FLEXSLIDER-->
     
-    <link rel="stylesheet" href="slider/flexslider.css" type="text/css" media="screen">
-    <script src="slider/js/modernizr.js"></script>  
+    <link rel="stylesheet" type="text/css" href="slider/flexslider.css">
+ 
     <!--ANGULARjs-->
     <script src="angular/angular.min.js"></script>    
-    <script src="angular/angular-cookies.js"></script>
+    
     <script src="angular/filmak.js"></script>
-    <script src="angular/angular-cookies.js"></script>
+
+  <script src="angular/angular-flexslider.js"></script>
+  
+
 
     
   </head>
@@ -89,66 +92,47 @@
    <div class="container2 headclr">
     <!--single row of thumnails-->
     <div class="col-sm-12">
-      <div class="col-sm-12">
+      
        <h4>New</h4>
-      </div>
-     <section class="slider">
-        <div class="flexslider carousel">
-          
-        <div class="flex-viewport" style="overflow: hidden; position: relative;"><ul class="slides" style="width: 2400%; transition-duration: 0s; transform: translate3d(-860px, 0px, 0px);">
-         
-            <li ng-repeat="video in responses_new.data" data-thumb-alt="" style="width: 300px;  ; margin-right: 5px; float: left; display: block;">
-              <img ng-src="images/{{video.videoID}}.jpg" draggable="false" ng-click="goto_video(video.videoID)">
-              
-              <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
-            </li>
-              
+      
+     <flex-slider class="carousel" slide="video in responses_new.data" animation="slide" animation-loop="false" item-width="210" item-margin="5">
+    <li>
+      <img ng-src="images/{{video.videoID}}.jpg" draggable="false" ng-click="goto_video(video.videoID)">
+      <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
+     
+    </li>
+    </div>
 
-            
-          </ul></div><ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li><li class="flex-nav-next"><a class="flex-next" data-target="#">Next</a></li></ul></div>
-      </section>
-   </div><!--end of single row-->
-
-
-    <!--single row of thumnails-->
-    <div class="col-sm-12">
-      <div class="col-sm-12">
-       <h4>Popular</h4>
-      </div>
-     <section class="slider">
-        <div class="flexslider carousel">
-          
-        <div class="flex-viewport" style="overflow: hidden; position: relative;"><ul class="slides" style="width: 2400%; transition-duration: 0s; transform: translate3d(-860px, 0px, 0px);">
-          <li ng-repeat="video in responses_popular.data" data-thumb-alt="" style="width: 300px;  ; margin-right: 5px; float: left; display: block;">
-              <img ng-src="images/{{video.videoID}}.jpg" draggable="false">
-              
-              <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
-           
-            
-          </ul></div><ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li><li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li></ul></div>
-      </section>
-   </div><!--end of single row-->
-
-
-
-   <!--single row of thumnails-->
-    <div class="col-sm-12">
-      <div class="col-sm-12">
+  </flex-slider>
+  <div class="col-sm-12">
+      
        <h4>Trending</h4>
-      </div>
-     <section class="slider">
-        <div class="flexslider carousel">
-          
-        <div class="flex-viewport" style="overflow: hidden; position: relative;"><ul class="slides" style="width: 2400%; transition-duration: 0s; transform: translate3d(-860px, 0px, 0px);">
-          <li ng-repeat="video in responses_trending.data" data-thumb-alt="" style="width: 300px;  ; margin-right: 5px; float: left; display: block;">
-              <img ng-src="images/{{video.videoID}}.jpg" draggable="false">
-              
-              <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
-            
-          </ul></div><ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li><li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li></ul></div>
-      </section>
-   </div><!--end of single row-->
+ <flex-slider class="carousel" slide="video in responses_trending.data" animation="slide" animation-loop="false" item-width="210" item-margin="5">
+    <li>
+      <img ng-src="images/{{video.videoID}}.jpg" draggable="false" ng-click="goto_video(video.videoID)">
+      <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
+     
+    </li>
 
+  </flex-slider>
+  </div>
+  <div class="col-sm-12">
+      
+       <h4>Popular</h4>
+  <flex-slider class="carousel" slide="video in responses_popular.data" animation="slide" animation-loop="false" item-width="210" item-margin="5">
+    <li>
+      <img ng-src="images/{{video.videoID}}.jpg" draggable="false" ng-click="goto_video(video.videoID)">
+      <div class="hh"><a ng-click="goto_video(video.videoID)">{{video.title}}</a><p>{{video.description}}</p></div>
+     
+    </li>
+  </flex-slider>
+</div>
+  <script src="slider/jquery.flexslider.js"></script>
+
+
+<!--end of single row-->
+
+</div>
 
 
 
@@ -162,32 +146,7 @@
    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-
-    <script type="text/javascript">
-    $(function(){
-      SyntaxHighlighter.all();
-    });
-    $(window).load(function(){
-      $('.flexslider').flexslider({
-        animation: "slide",
-        animationLoop: false,
-        itemWidth: 210,
-        itemMargin: 5,
-        minItems: 2,
-        maxItems: 4,
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-      });
-    });
-  </script>
-
-   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js">\x3C/script>')</script>
   
- 
-
-  <script defer="" src="slider/jquery.flexslider.js"></script>
-
    
 
 

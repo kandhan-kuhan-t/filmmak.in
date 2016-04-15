@@ -40,58 +40,112 @@ if(!$_SESSION['username']){
     <div ng-controller="mainController as mainCtrl">
     <div class="container-fluid">
       <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <div class="navbar-header">
       <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
-    
-        <form class="navbar-form navbar-left" role="search">
-  <div class="form-group">
-    <input type="text" class="form-control sharp" placeholder="Search" ng-model="search_string">
-  </div>
-  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
-  <br/>
-    Video<input type="radio" ng-model="searchType" value="video">
-  Profile<input type="radio" ng-model="searchType" value="profile">
-  </form>
-              <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
-           </div>
+    </div>
 
-         
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+       </ul> 
+      <form class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control sharp" placeholder="{{placeholder_search}}" ng-model="search_string">
   </div>
+  <button type="submit" class="btn btn-default sharp" ng-click = "search()">Submit</button>
+  <br><br>
+  <div align="center">
+    Video&nbsp;<input type="radio" ng-model="searchType" name="searchType" value="video" checked />
+  &nbsp;&nbsp;&nbsp;Profile&nbsp;<input type="radio" ng-model="searchType" value="profile" >
+  </div>
+  </form>
+     
+    <div class="top-mar">
+                  <div ng-show="show()">
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" overflow="hidden" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+           </div>
+           <div ng-hide="show()">
+            <ul class="nav navbar-nav navbar-right"><li><a href="signin.php" class="btn btn-default" type="button">Login/SignUp</a></li></ul>
+          </div>
+     </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 </div>
 
 
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cover Picture</h4>
+      </div>
+      <div class="modal-body">
+        <img src="images/coverpic/original/{{username}}.jpg" class="img-responsive">
+      </div>
+      </div>
+  </div>
+</div>
 
 
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Profile Picture</h4>
+      </div>
+      <div class="modal-body" align="center">
+        <img src="images/profilepic/original/{{username}}.jpg" class="img-responsive">
+      </div>
+      </div>
+  </div>
+</div>
+<div ng-controller="formController" ng-cloak>
 <div class="container2">
 <!--cover-->
   <div class="main">
     <div class="cover">
-        <img ng-src="images/coverpic/{{username}}" />
+        <img ng-src="images/coverpic/{{username}}.jpg" data-toggle="modal" data-target="#myModal">
+        <!--img src="cover.png"-->
+
     </div>
     <div class="profile">
       <!--size 200px * 200px-->
-        <img ng-src="images/profilepic/{{username}}" />
+        <img ng-src="images/profilepic/{{username}}.jpg" data-toggle="modal" data-target="#myModal2">
+        <!--img src="profile.png" -->
+    </div>
+    <div class="profile_det">
+      <h3><strong>{{profile_name}}</strong></h3>
+      <h5>{{field_of_expertise|nullFilter|uppercase}}</h5>
     </div>
 </div>
 <!--tabs-->
-<div ng-controller="formController" ng-cloak>
+
 
   <div class="col-sm-12 well bxclr">
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs tabclr" role="tablist">
-    <li role="presentation" class="active"><a href="#profile" aria-controls="Profile" role="tab" data-toggle="tab">Profile</a></li>
+    <li role="presentation" class="active"><a href="#profile" aria-controls="Profile" role="tab" data-toggle="tab" ng-click="editable()">Profile</a></li>
     
-    <li role="presentation"><a href="#contact" aria-controls="conatactinfo" role="tab" data-toggle="tab">Contact Info</a></li>
+    <li role="presentation"><a href="#contact" aria-controls="conatactinfo" role="tab" data-toggle="tab" ng-click="editable()">Contact Info</a></li>
 
-    <li role="presentation"><a href="#picture" aria-controls="picture" role="tab" data-toggle="tab">Profile/Cover Photo</a></li>
+    <li role="presentation"><a href="#picture" aria-controls="picture" role="tab" data-toggle="tab" ng-click="noneditable()">Profile/Cover Photo</a></li>
     
       </ul>
 
@@ -110,10 +164,8 @@ if(!$_SESSION['username']){
         <ul class="list-group">
           <li class="list-group-item">
            Full Name:
-           <div ng-show="isEditable()">
-             <input  type = "text" ng-model="profile_name"/>
-           </div>
-           <span ng-show="!isEditable()">
+           
+           <span >
              {{profile_name}}
            </span>
          </li>
@@ -216,26 +268,35 @@ if(!$_SESSION['username']){
     
 
     </div>
-     <div ng-show="isEditable()">
-      <input type="submit" class="btn btn-edit">
-        <button type="button" class="btn btn-edit" ng-click="cancel()">Cancel</button>
-    </div>
+     
     </form>
     <div role="tabpanel" class="tab-pane tabclr" id="picture">
+      <ul class="list-group">
+        <br>
+      <li class="list-group-item">
       <form ng-submit="profilepicUpload()"> 
             <input type="file" id="exampleInputFile" file-model="profilepic">
-            <input type="submit" value="profilepic"/>
-            </form>
-            <form ng-submit="coverpicUpload()">
+            <input class="btn btn-default ho" type="submit" value="profilepic"/>
+      </form>
+    </li>
+    <li class="list-group-item">
+      <form ng-submit="coverpicUpload()">
               <input type="file" id="exampleInputFile" file-model="coverpic">
-              <input type="submit" value="coverpic"/>
-            </form>
+              <input class="btn btn-default ho" type="submit" value="coverpic"/>
+      </form>
+      </li>
+    </ul>
+    </div>
     </div>
     
-    <div ng-show="!isEditable()">
+    <div ng-show="!isEditable() && !dont_show">
           <button type="button" class="btn btn-edit" ng-click="edit()">&nbsp;Edit&nbsp;</button>
 
         </div>
+        <div ng-show="isEditable() && !dont_show ">
+      <input type="submit" class="btn btn-edit">
+        <button type="button" class="btn btn-edit" ng-click="cancel()">Cancel</button>
+    </div>
     
   </div>
 

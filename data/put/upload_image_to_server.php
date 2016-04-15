@@ -15,8 +15,10 @@ $source = imagecreatefromjpeg($file_tmp);
 
 // Resize
 imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height); 
+imagejpeg($source,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/original".$file_name.".jpg") or $response['status']="ERROR UPLOADING IMAGE";
 
-imagejpeg($thumb,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/".$file_name) or $response['status']="ERROR UPLOADING IMAGE";
+
+imagejpeg($thumb,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/".$file_name.".jpg") or $response['status']="ERROR UPLOADING IMAGE";
 $response['status'] = 1;
 
 echo json_encode($response);

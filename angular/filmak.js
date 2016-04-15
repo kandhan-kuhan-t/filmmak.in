@@ -1,11 +1,11 @@
-angular.module('filmak.in',['ngCookies'])
-	
+angular.module('filmak.in',['angular-flexslider'])
+    
     .run(function($http){
-		//RUNS BEFORE CONTROLLERS DO
+        //RUNS BEFORE CONTROLLERS DO
         console.log("FILMAK.IN RUNNING!")
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
-	})
+    })
     .directive('fileModel', ['$parse', function ($parse) {
             
             return {
@@ -53,7 +53,8 @@ angular.module('filmak.in',['ngCookies'])
     }
         
     
-    $http.post('login/register_user.php',$scope.data)
+   
+        $http.post('login/register_user.php',$scope.data)
    
         .success(function(response){
 
@@ -64,10 +65,11 @@ angular.module('filmak.in',['ngCookies'])
             }
             else{
 
-                alert('Already registered, simply Login!')
+               
             }
    
         })
+    
     }
     
    
@@ -117,7 +119,7 @@ angular.module('filmak.in',['ngCookies'])
     })
 
 
-    .controller('loginController',function($scope,$rootScope,$http,Auth,$cookies){
+    .controller('loginController',function($scope,$rootScope,$http,Auth){
     
         console.log("LOGIN CONTROLLER RUNNING!");
 
@@ -282,12 +284,23 @@ angular.module('filmak.in',['ngCookies'])
 
     //profile controller
     
-    .controller('formController',function($filter,$scope,$http,Profile,$rootScope, $window,$controller,$q){
-                
+    .controller('formController',function($filter,$scope,$http,Profile,$rootScope, $window,$controller,$q,$location){
         
         console.log("formController RUNNING!")
 
        $scope.edit_val = false
+$scope.dont_show = false
+$scope.editable = function(){
+
+           
+            $scope.dont_show=false
+
+        }
+        $scope.noneditable = function(){
+            
+            $scope.dont_show = true 
+            
+        }
                 
         $scope.edit = function(){
                   
@@ -347,6 +360,7 @@ angular.module('filmak.in',['ngCookies'])
             }
         
             Profile.submit_contact($scope.data)
+$window.location.reload()
             
         }
             
@@ -371,7 +385,7 @@ angular.module('filmak.in',['ngCookies'])
             Profile.submit_profile($scope.data)
             console.log($scope.data)
             $scope.submit_contact()
-            $window.location.reload()
+            
         }
         
         $scope.isEditable = function(){
@@ -431,10 +445,10 @@ $scope.profilepicDeferred = $q.defer();
              
              $scope.profilepicPromise
                 .then(function(data){
-                    console.log(data)
                     $window.location.reload()
                 },
-                function(error){                           
+                function(error){ 
+                    console.log(error)                         
                     alert(error)
                 })
                                                                         
@@ -490,6 +504,7 @@ $scope.profilepicDeferred = $q.defer();
                         $window.location.reload()
                     },
                     function(error){
+                        console.log(error)
                         alert(error)
                     })
         
@@ -501,7 +516,7 @@ $scope.profilepicDeferred = $q.defer();
 
     })
     
-    .controller('videoDetailsController',function($scope,$http,$cookies,$timeout,Video,$window,$sce){
+    .controller('videoDetailsController',function($scope,$http,$timeout,Video,$window,$sce){
 
         console.log("videoDetailsController RUNNING!")
 
@@ -576,15 +591,16 @@ $scope.profilepicDeferred = $q.defer();
 
             console.log(response)
             $scope.profile = response;
+            $scope.profile.dob = new Date(response.dob)
             console.log($scope.profile)
-            if(response.dob == '00-00-0000'){$scope.dob =''}
+            
             if(response.access == '1'){$scope.public_val = 1}
             //$scope.profile_name = response.data.profile_name
         })
 
     })
 
-    .controller('filmSubmissionController',function($scope,$http,Auth,$cookies,$window,$q,$sce){
+    .controller('filmSubmissionController',function($scope,$http,Auth,$window,$q,$sce){
         
         console.log("filmSubmissionCtrl RUNNING");
 
@@ -595,7 +611,7 @@ $scope.profilepicDeferred = $q.defer();
         //If the video has been uploaded,returns true. Cast details to be submitted then.
         $scope.isUploaded = function(){
 
-            return !$scope.upload_val
+            return $scope.upload_val
         }
 
         //Video Details
@@ -834,7 +850,27 @@ $scope.profilepicDeferred = $q.defer();
         }
         
     })
- 	
+
+    .controller('passwordRecoveryController',function($scope,$http){
+
+        $scope.username;
+        $scope.submit = function(){
+            $scope.data = {
+
+                'username' : $scope.username
+            }
+        
+            $http.post('data/passcode_gen.php',$scope.data)
+                .then(function(response){
+                    console.log(response)
+                    if(response.data.status == 1){alert("Password reset link sent to your mail")}
+                        else {alert(response.data.status)}
+                })
+
+        }
+
+    })
+    
 
     .factory('Profile',function($http,$rootScope){
 
@@ -879,8 +915,8 @@ $scope.profilepicDeferred = $q.defer();
 
     })
 
-    .factory('Auth',function($http,$rootScope,$cookies,$location,$window){
- 		
+    .factory('Auth',function($http,$rootScope,$location,$window){
+        
         var service ={}
         
         service.login = function(data){    

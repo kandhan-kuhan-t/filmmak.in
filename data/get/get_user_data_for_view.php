@@ -23,6 +23,7 @@ $response['dob'] = $result['dob'];
 $response['contact_number'] = $result['contact_number'];
 $response['email_id'] = $result['email_id'];
 $response['access'] = $result['access'];
+$response['username'] = $result['username'];
 
 echo json_encode($response);
 ?>

@@ -20,10 +20,11 @@ if($type == 'profile'){
 // Resize
 	imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height); 
 	$response['status'] = 1;
-	imagejpeg($thumb,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/profilepic/".$file_name) or $response['status']=error_get_last();
+	imagejpeg($source,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/profilepic/original/".$file_name.".jpg") or $response['status']=error_get_last();
+	imagejpeg($thumb,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/profilepic/".$file_name.".jpg") or $response['status']=error_get_last();
 
 	$response['username'] = $file_name;
-	$response['filepath'] = $_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/profilepic/".$file_name;
+	$response['filepath'] = $_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/profilepic/".$file_name.".jpg";
 	echo json_encode($response);
 
 }
@@ -41,7 +42,8 @@ else if($type == 'cover'){
 // Resize
 	imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height); 
 	$response['status'] = 1;
-	imagejpeg($thumb,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/coverpic/".$file_name) or $response['status']=error_get_last();
+	imagejpeg($source,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/coverpic/original/".$file_name.".jpg") or $response['status']=error_get_last();
+	imagejpeg($thumb,$_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/coverpic/".$file_name.".jpg") or $response['status']=error_get_last();
 
 	$response['username'] = $file_name;
 	$response['filepath'] = $_SERVER['DOCUMENT_ROOT']."/filmmak.in/images/coverpic/".$file_name;

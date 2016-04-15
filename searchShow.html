@@ -28,31 +28,49 @@
     <!--outer container for check - further will change it with col-sm-8 for ads-->
     <div ng-controller="mainController as mainCtrl">
     <div class="container-fluid">
-      <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+          <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <div class="navbar-header">
       <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
-    
-        <form class="navbar-form navbar-left" role="search">
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+       </ul> 
+      <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-    <input type="text" class="form-control sharp" placeholder="Search" ng-model="search_string">
+    <input type="text" class="form-control sharp" placeholder="{{placeholder_search}}" ng-model="search_string">
   </div>
-  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
-  Video<input type="radio" ng-model="searchType" value="video">
-  Profile<input type="radio" ng-model="searchType" value="profile">
+  <button type="submit" class="btn btn-default sharp" ng-click = "search()">Submit</button>
+  <br><br>
+  <div align="center">
+    Video&nbsp;<input type="radio" ng-model="searchType" name="searchType" value="video" checked />
+  &nbsp;&nbsp;&nbsp;Profile&nbsp;<input type="radio" ng-model="searchType" value="profile" >
+  </div>
   </form>
-              <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+     
+    <div class="top-mar">
+                  <div ng-show="show()">
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" overflow="hidden" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
             <ul class="nav navbar-nav navbar-right"><li><a href="signin.php" class="btn btn-default" type="button">Login/SignUp</a></li></ul>
           </div>
-
-         
-  </div>
+     </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 </div>
 
@@ -69,13 +87,13 @@
 
 <!--repeat for showing results-->
 <div ng-controller="searchController as searchCtrl">
-  <div ng-if="responses.length==0"><h2 style="color:green">No results</h2></div>
+  <div ng-if="responses.length==0"><h4 style="color:#ffffff">No results</h4></div>
 <div class="col-sm-12 pads" ng-repeat="response in responses">
   <div class="col-sm-3">
     <img ng-src="images/{{response.videoID}}" draggable="false" class="img-responsive" alt="title">
   </div>
   <div class="col-sm-8">
-    <h2><a ng-href="video.php?videoID={{response.videoID}}" >{{response.title}}</a></h2>
+    <h3><a ng-href="video.php?videoID={{response.videoID}}" >{{response.title}}</a></h3>
     <p>{{response.description}}</p>
     <strong>{{response.views}} Views</strong>
   </div>

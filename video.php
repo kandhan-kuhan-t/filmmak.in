@@ -33,30 +33,49 @@ $title = $result[2];
   <body ng-cloak>
   	<!--outer container for check - further will change it with col-sm-8 for ads-->
     <div class="container-fluid">
-      <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+          <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <div class="navbar-header">
       <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
-      <div ng-controller="mainController as mainCtrl">
-        <form class="navbar-form navbar-left" role="search">
-  <div class="form-group">
-    <input type="text" class="form-control" placeholder="Search" ng-model="search_string">
-  </div>
-  <button type="submit" class="btn btn-default" ng-click="search()">Submit</button>
-    Video<input type="radio" ng-model="searchType" value="video">
-  Profile<input type="radio" ng-model="searchType" value="profile">
-  </form>
+    </div>
 
-    <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+       </ul> 
+      <form class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control sharp" placeholder="{{placeholder_search}}" ng-model="search_string">
+  </div>
+  <button type="submit" class="btn btn-default sharp" ng-click = "search()">Submit</button>
+  <br><br>
+  <div align="center">
+    Video&nbsp;<input type="radio" ng-model="searchType" name="searchType" value="video" checked />
+  &nbsp;&nbsp;&nbsp;Profile&nbsp;<input type="radio" ng-model="searchType" value="profile" >
+  </div>
+  </form>
+     
+    <div class="top-mar">
+                  <div ng-show="show()">
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" overflow="hidden" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
             <ul class="nav navbar-nav navbar-right"><li><a href="signin.php" class="btn btn-default" type="button">Login/SignUp</a></li></ul>
           </div>
-            </div>
+     </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 </div>
 
@@ -78,21 +97,17 @@ $title = $result[2];
               <div class="embed-responsive embed-responsive-4by3">
                    <iframe class="embed-responsive-item" src="..."></iframe>
               </div><-->
-          </div>
-      <div class="col-sm-12 vidtext well">
+      
+          <div class="col-sm-12 vidtext well">
         <strong><h4>{{title}}</h4></strong>
           <h5><mark>&nbsp;{{views}} Views&nbsp;</mark></h5>
           <!--<h6>Upvote/Downvote</h6>-->
+
+
       </div>
 
-      </div>
-       
-    </div>
 
-
-
-
-      <div class="col-sm-12 well bxclr">
+     <div class="col-sm-12 well bxclr">
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs tabclr" role="tablist">
@@ -103,21 +118,34 @@ $title = $result[2];
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active tabclr" id="descrip" style="color:white"><br/>{{description}}</div>
+    <div role="tabpanel" class="tab-pane active tabclr" id="descrip" style="color:white"><br/>&nbsp;&nbsp;{{description}}<br><br></div>
     
     <div role="tabpanel" class="tab-pane tabclr" id="cast" style="color:white">
       <br/>
       <a ng-repeat="filmak_user in filmak_users" ng-click="(goto_profile(filmak_user.member_name))">
-        {{filmak_user.profile_name}}</a>
+        &nbsp;&nbsp;{{filmak_user.profile_name}}<br><br></a>
 
       <p ng-repeat="non_filmak_user in non_filmak_users" ng-click="showError()">
-        {{non_filmak_user.member_name}}&nbsp;&nbsp;<span ng-bind-html="error"></span></p>
+        &nbsp;&nbsp;{{non_filmak_user.member_name}}&nbsp;&nbsp;<br><br><span ng-bind-html="error"></span></p>
     
     </div>
-    <div role="tabpanel" class="tab-pane tabclr" id="other" style="color:white"><br/>{{genre}}</div>
+    <div role="tabpanel" class="tab-pane tabclr" id="other" style="color:white"><br/>&nbsp;&nbsp;{{genre}}<br><br></div>
   </div>
 
 </div>
+
+
+          </div>
+      
+
+      </div>
+       
+    </div>
+
+
+
+
+      
 
 
 

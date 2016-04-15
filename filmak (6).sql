@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2016 at 01:54 AM
+-- Generation Time: Apr 15, 2016 at 07:09 PM
 -- Server version: 5.6.28-0ubuntu0.15.10.1
 -- PHP Version: 5.6.11-1ubuntu3.1
 
@@ -33,13 +33,6 @@ CREATE TABLE IF NOT EXISTS `casting` (
   `isMember` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `casting`
---
-
-INSERT INTO `casting` (`videoID`, `member_name`, `field`, `isMember`) VALUES
-('m7uveDMaVG4', 'kandhan.kuhan@gmail.com', 'sfx', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -53,13 +46,16 @@ CREATE TABLE IF NOT EXISTS `contact` (
   `access` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `contact`
+-- Table structure for table `password_recovery`
 --
 
-INSERT INTO `contact` (`username`, `contact_number`, `email_id`, `access`) VALUES
-('26kandhan@gmail.com', '', '', 0),
-('kandhan.kuhan@gmail.com', '', '', 0);
+CREATE TABLE IF NOT EXISTS `password_recovery` (
+  `username` varchar(255) NOT NULL,
+  `passcode` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -72,14 +68,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `profile_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`username`, `password`, `profile_name`) VALUES
-('26kandhan@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'kuhan kandhan'),
-('kandhan.kuhan@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'kandhan kuhan');
 
 --
 -- Triggers `users`
@@ -108,14 +96,6 @@ CREATE TABLE IF NOT EXISTS `users_profile` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `display_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users_profile`
---
-
-INSERT INTO `users_profile` (`profile_name`, `username`, `gender`, `about`, `experience`, `field`, `dob`, `timestamp`, `display_name`) VALUES
-('kuhan kandhan', '26kandhan@gmail.com', 'null', '', 0, 'null', 'null', '2016-04-14 20:21:28', 'kuhan'),
-('kandhan kuhan', 'kandhan.kuhan@gmail.com', 'null', '', 0, 'null', 'null', '2016-04-14 20:20:28', 'kandhan');
 
 --
 -- Triggers `users_profile`
@@ -156,16 +136,6 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `views` int(11) DEFAULT '0',
   `upload_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `videos`
---
-
-INSERT INTO `videos` (`username`, `videoID`, `title`, `description`, `genre`, `duration`, `views`, `upload_date`) VALUES
-('26kandhan@gmail.com', 'm7uveDMaVG4', 'Check', 'Checking', 'CHK', '328', 0, '2016-04-14 19:37:23'),
-('26kandhan@gmail.com', 'SxBNlcf0AzI', '...', 'CHECK', 'CHK', '317', 0, '2016-04-14 19:43:14'),
-('26kandhan@gmail.com', 'U-AENMwFdt8', 'hkj', 'hjk', 'hkj', '277', 0, '2016-04-14 19:47:37'),
-('26kandhan@gmail.com', 'YGf8j9Fxn4w', 'Check 2', 'Check 2', 'CHK', '159', 0, '2016-04-14 19:41:53');
 
 --
 -- Indexes for dumped tables

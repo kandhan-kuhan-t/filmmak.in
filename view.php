@@ -37,46 +37,93 @@ $_SESSION['view_username'] = $_REQUEST['username'];
     <div ng-controller="mainController as mainCtrl">
     <div class="container-fluid">
       <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <div class="navbar-header">
       <a class="navbar-brand" href="home.html">
         <img src="logo.png" alt="brand">
       </a>
     </div>
-    
-        <form class="navbar-form navbar-left" role="search">
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+       </ul> 
+      <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-    <input type="text" class="form-control sharp" placeholder="Search">
+    <input type="text" class="form-control sharp" placeholder="{{placeholder_search}}" ng-model="search_string">
   </div>
-  <button type="submit" class="btn btn-default sharp" ng-click="search()">Submit</button>
-    Video<input type="radio" ng-model="searchType" value="video">
-  Profile<input type="radio" ng-model="searchType" value="profile">
+  <button type="submit" class="btn btn-default sharp" ng-click = "search()">Submit</button>
+  <br><br>
+  <div align="center">
+    Video&nbsp;<input type="radio" ng-model="searchType" name="searchType" value="video" checked />
+  &nbsp;&nbsp;&nbsp;Profile&nbsp;<input type="radio" ng-model="searchType" value="profile" >
+  </div>
   </form>
-              <div ng-show="show()">
-             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
+     
+    <div class="top-mar">
+                  <div ng-show="show()">
+             <ul class="nav navbar-nav navbar-right"><li><div class="dropdown veralign" ><button class="btn btn-default dropdown-toggle sharp" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" overflow="hidden" >Hi {{name}} &nbsp;<span class="caret"></span></button><ul class="dropdown-menu"><li><a href="profile.php">View profile</a></li><li><a ng-click="logout()">Logout</a></li><li><a href="upload.php">Upload</a></li></ul></div></li></ul>
            </div>
            <div ng-hide="show()">
             <ul class="nav navbar-nav navbar-right"><li><a href="signin.php" class="btn btn-default" type="button">Login/SignUp</a></li></ul>
           </div>
-
-         
-  </div>
+     </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
 </div>
 
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Cover Picture</h4>
+      </div>
+      <div class="modal-body">
+        <img src="images/coverpic/{{username}}.jpg"  class="img-responsive">
+      </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Profile Picture</h4>
+      </div>
+      <div class="modal-body" align="center">
+        <img src="images/profilepic/{{username}}.jpg" class="img-responsive">
+      </div>
+      </div>
+  </div>
+</div>
 
 
 
 <div class="container2">
 <!--cover-->
   <div class="main">
-    <div class="cover">
-        <img src="images/coverpic/{{username}}" />
+    <div class="cover" data-toggle="modal" data-target="#myModal">
+        <img src="images/coverpic/{{username}}.jpg" />
     </div>
-    <div class="profile">
+    <div class="profile" data-toggle="modal" data-target="#myModal2">
       <!--size 200px * 200px-->
-        <img src="images/profilepic/{{username}}" />
+        <img src="images/profilepic/{{username}}.jpg" />
     </div>
 </div>
 <!--tabs-->
